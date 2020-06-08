@@ -1,0 +1,51 @@
+<div class="container" >
+
+    <div class="card" style="margin-bottom: 1%;" >
+
+      <div class="card-body" >
+        <div class="row" >
+          <div class="col-md-4" >
+            <button class="btn btn-outline-success" (click)="pedidosHoy()" >Hoy</button>
+          </div>
+          <div class="col-md-4" >
+            <input type="date" #fecha>
+            <button class="btn btn-outline-warning" (click)="fechaPedido(fecha)" >Buscar</button>
+          </div>
+          <div class="col-md-4" >
+            <button class="btn btn-outline-info" [routerLink]="[ '/home/pedidos' ]" >Todos</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div *ngIf="pedidos != undefined" >
+      <div class="card" *ngFor="let pedido of pedidos; index as i" >
+          <div class="card-header">
+            <div class="row" >
+              <div class="col-md-6" >
+                Cliente: {{ pedido.nombreCliente }}
+              </div>
+              <div class="col-md-6" >
+                Fecha y hora: {{ pedido.creacionFecha }}, {{ pedido.creacionHora }}
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Ordenes</h5>
+            <p class="card-text" *ngFor="let orden of pedido.orden" > 
+              Cantidad: {{ orden.cantidad }},, Nombre: {{ orden.producto.nombre }},, Descripcion: {{ orden.descripcion }} 
+            </p>
+            <button class="btn btn-secondary " *ngIf="pedido.estado" >Completado</button>
+            <button class="btn btn-outline-danger" *ngIf="!pedido.estado" (click)="completar(i)" >Completar</button>
+            
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="pedidos === ''" >
+      <h2>No hay pedidos!</h2>
+    </div>
+
+</div>

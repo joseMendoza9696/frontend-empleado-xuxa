@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand bg-danger" style="margin-bottom: 2%;" >
+
+    <div class="col-md-2" >
+        <a class="nav-link text-warning" href="#">{{ nombre }} - {{ cargo }}</a>
+    </div>
+    <div class="col-md-7" >
+        <form >
+            <div class="row" >
+                <div class="col-md-11" >
+                    <input class="form-control" type="text">
+                </div>
+                <div class="col-md-1" >
+                    <button type="submit" class="btn btn-primary" >Buscar</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    <div class="col-md-2" >
+        <!-- <a class="nav-link text-warning" [routerLink]="[ '/home/empleados' ]"  >Empleados</a> -->
+        <a class="nav-link text-warning" [routerLink]="[ '/home/crear-pedido' ]" >Nuevo pedido</a>
+    </div>
+    <div class="col-md-1" >
+        <a class="nav-link text-warning" href="#">Pedidos</a>
+    </div>
+
+</nav>

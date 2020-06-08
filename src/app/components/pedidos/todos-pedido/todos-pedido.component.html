@@ -1,0 +1,55 @@
+<div class="container" >
+
+    <div class="card" style="margin-bottom: 1%;" >
+    
+        <div class="card-body" >
+          <div class="row" >
+            <div class="col-md-4" >
+              <button class="btn btn-outline-success" [routerLink]="[ '/home/fecha-pedidos' ]" >Hoy</button>
+            </div>
+            <div class="col-md-4" >
+              <input type="date" #fecha >
+              <button class="btn btn-outline-warning" (click)="fechaPedido(fecha)" >Buscar</button>
+            </div>
+            <div class="col-md-4" >
+              <button class="btn btn-outline-info" (click)="recargar()" >Todos</button>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="pedidos.length != 0" >
+      <div class="card" *ngFor="let pedido of pedidos"  >
+          <div class="card-header">
+              <div class="row" >
+                  <div class="col-md-6" >
+                      Cliente: {{ pedido.nombreCliente }}
+                  </div>
+                  <div class="col-md-6" >
+                      Fecha: {{ pedido.creacionFecha }} Hora: {{ pedido.creacionHora }}
+                  </div>
+              </div>
+          </div>
+          <div class="card-body">
+              <h5 class="card-title">Ordenes</h5>
+              <p class="card-text" *ngFor="let orden of pedido.orden" > 
+                Cantidad: {{ orden.cantidad }},, Nombre: {{ orden.producto.nombre }},, Descripcion: {{ orden.descripcion }} 
+              </p>
+              
+              <div class="badge badge-success text-wrap" style="width: 6rem;" *ngIf="pedido.estado" >
+                Completado !!
+              </div>
+              <div class="badge badge-danger text-wrap" style="width: 6rem;" *ngIf="!pedido.estado" >
+                No Completado !!
+              </div>
+              
+          </div>
+      </div>
+    </div>
+
+    <div *ngIf="pedidos.length === 0">
+      <h3>No hay pedidos</h3>
+    </div>
+
+</div>
