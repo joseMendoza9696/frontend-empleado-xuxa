@@ -27,11 +27,11 @@ export class NodeService {
   readonly URL: string = 'https://mendoza-nodejs-xuxas.herokuapp.com';
   private header = new HttpHeaders();
 
-  private token = localStorage.getItem('token');
-  private id = localStorage.getItem('id');
-  private cargo = localStorage.getItem('cargo');
-  private correo = localStorage.getItem('correo');
-  private nombre = localStorage.getItem('nombre');
+  private token = localStorage.getItem('tokenEmpleado');
+  private id = localStorage.getItem('idEmpleado');
+  private cargo = localStorage.getItem('cargoEmpleado');
+  private correo = localStorage.getItem('correoEmpleado');
+  private nombre = localStorage.getItem('nombreEmpleado');
 
   login( empleado: EmpleadoModel ) {
     const loginData = {
@@ -56,15 +56,15 @@ export class NodeService {
     this.userNombre = nombre;
 
 
-    localStorage.setItem( 'token', token );
-    localStorage.setItem( 'id', id );
-    localStorage.setItem( 'cargo', cargo );
-    localStorage.setItem( 'correo', correo );
-    localStorage.setItem( 'nombre', nombre );
+    localStorage.setItem( 'tokenEmpleado', token );
+    localStorage.setItem( 'idEmpleado', id );
+    localStorage.setItem( 'cargoEmpleado', cargo );
+    localStorage.setItem( 'correoEmpleado', correo );
+    localStorage.setItem( 'nombreEmpleado', nombre );
   }
 
   estaAutenticado() {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('tokenEmpleado');
 
     if ( !token ) {
       return false
