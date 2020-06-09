@@ -23,7 +23,8 @@ export class NodeService {
 
   constructor( private http: HttpClient ) { }
 
-  readonly URL: string = 'http://localhost:3000';
+  // readonly URL: string = 'http://localhost:3000';
+  readonly URL: string = 'https://mendoza-nodejs-xuxas.herokuapp.com';
   private header = new HttpHeaders();
 
   private token = localStorage.getItem('token');
@@ -53,7 +54,7 @@ export class NodeService {
     this.userCargo = cargo;
     this.userCorreo = correo;
     this.userNombre = nombre;
-    
+
 
     localStorage.setItem( 'token', token );
     localStorage.setItem( 'id', id );
@@ -75,7 +76,7 @@ export class NodeService {
 
   fechaPedidos(fecha: any) {
     this.header = this.header.set('Authorization', this.token);
-    
+
     let f = {
       fecha: fecha
     }
@@ -85,20 +86,20 @@ export class NodeService {
 
   todosPedidos() {
     this.header = this.header.set('Authorization', this.token);
-    
+
     return this.http.get(`${this.URL}/emp/pedidos/${this.id}`,{ headers: this.header });
   }
-  
+
   crearPedido( pedido: PedidoModel ) {
     this.header = this.header.set('Authorization', this.token);
-    
+
     const pedidoData = {
       ...pedido
     }
-    
+
     return this.http.post(`${this.URL}/emp/pedido/nuevo`, pedidoData, { headers: this.header } );
   }
-  
+
   actualizarPedido(idP: string) {
     this.header = this.header.set('Authorization', this.token);
     const patch = {
@@ -108,22 +109,22 @@ export class NodeService {
     return this.http.patch(`${this.URL}/emp/pedido/${idP}/${this.id}`, patch, { headers: this.header });
 
   }
-  
+
   listarProductos() {
     this.header = this.header.set('Authorization', this.token);
-    
+
     return this.http.get(`${this.URL}/emp/productos`,{ headers: this.header });
   }
-  
+
   listarProducto(id: string) {
     this.header = this.header.set('Authorization', this.token);
-    
+
     return this.http.get(`${this.URL}/emp/producto/${id}`, { headers: this.header });
   }
-  
+
   listarProductosTipo(tipo: string) {
     this.header = this.header.set('Authorization', this.token);
-    
+
     return this.http.get(`${this.URL}/emp/productos/${tipo}`, { headers: this.header });
   }
 
