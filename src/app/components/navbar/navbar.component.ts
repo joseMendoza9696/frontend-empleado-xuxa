@@ -9,8 +9,8 @@ export class NavbarComponent implements OnInit {
 
   constructor() { }
 
-  nombre = localStorage.getItem('nombre');
-  cargo = localStorage.getItem('cargo');
+  nombre = localStorage.getItem('nombreEmpleado');
+  cargo = localStorage.getItem('cargoEmpleado');
 
   ngOnInit() {
   }
