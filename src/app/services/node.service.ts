@@ -23,8 +23,8 @@ export class NodeService {
 
   constructor( private http: HttpClient ) { }
 
-  readonly URL: string = 'http://localhost:3000';
-  // readonly URL: string = 'https://mendoza-nodejs-xuxas.herokuapp.com';
+  // readonly URL: string = 'http://localhost:3000';
+  readonly URL: string = 'https://mendoza-nodejs-xuxas.herokuapp.com';
   private header = new HttpHeaders();
 
   private token = localStorage.getItem('tokenEmpleado');
