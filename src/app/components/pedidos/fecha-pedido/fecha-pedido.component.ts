@@ -80,14 +80,5 @@ export class FechaPedidoComponent implements OnInit {
     });
   }
 
-  completar(index: number) {
-    console.log(this.pedidos[index]);
-    this.node.actualizarPedido(this.pedidos[index]._id).subscribe( resp => {
-      console.log(resp);
-      this.ngOnInit();
-    });
-  }
-
-
 
 }
