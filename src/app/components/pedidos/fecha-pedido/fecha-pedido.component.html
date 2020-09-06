@@ -12,7 +12,8 @@
             <button class="btn btn-outline-warning" (click)="fechaPedido(fecha)" >Buscar</button>
           </div>
           <div class="col-md-4" >
-            <button class="btn btn-outline-info" [routerLink]="[ '/home/pedidos' ]" >Todos</button>
+<!--            <button class="btn btn-outline-info" [routerLink]="[ '/home/pedidos' ]" >Todos</button>-->
+            <h3> Total ingresos: {{ ingresos }} Bs. </h3>
           </div>
         </div>
       </div>
@@ -21,16 +22,23 @@
 
     <div *ngIf="pedidos != undefined" >
       <div class="card" *ngFor="let pedido of pedidos;let i = index;" >
-          <div class="card-header">
+
+        <div class="card-header">
             <div class="row" >
-              <div class="col-md-6" >
+
+              <div class="col-md-4" >
                 Cliente: {{ pedido.nombre_cliente }}
               </div>
-              <div class="col-md-6" >
+              <div class="col-md-4" >
                 Fecha y hora: {{ pedido.fecha_creacion }}, {{ pedido.hora_creacion }}
               </div>
+              <div class="col-md-4" >
+                Cuenta: {{ pedido.cuenta_pedido }} Bs
+              </div>
+
             </div>
-          </div>
+        </div>
+
           <div class="card-body">
             <h5 class="card-title">Ordenes</h5>
             <p class="card-text" *ngFor="let orden of pedido.orden" >

@@ -14,6 +14,7 @@ export class FechaPedidoComponent implements OnInit {
 
   pedidos: any = '';
   fechaBusca: Date;
+  ingresos: number = 0;
 
   constructor( private node: NodeService ) { }
 
@@ -29,13 +30,13 @@ export class FechaPedidoComponent implements OnInit {
       this.pedidos = this.listarProductos(this.pedidos);
       // console.log(this.pedidos);
     });
-
   }
 
   listarProductos(pedidos: any) {
 
     for (let i = 0; i < pedidos.length; i++) {
       let pedido = pedidos[i];
+      this.ingresos = this.ingresos + pedido.cuenta_pedido;
 
       for (let j = 0; j < pedido.orden.length; j++) {
         let orden = pedido.orden[j];
@@ -86,5 +87,7 @@ export class FechaPedidoComponent implements OnInit {
       this.ngOnInit();
     });
   }
+
+
 
 }
