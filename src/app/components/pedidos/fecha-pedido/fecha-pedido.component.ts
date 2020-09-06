@@ -56,6 +56,7 @@ export class FechaPedidoComponent implements OnInit {
 
   fechaPedido( fecha: any ) {
     // console.log(fecha.value);
+    this.ingresos = 0;
     let fechaB = moment(fecha.value);
     let fechaBusqueda = fechaB.format('YYYY-MM-DD');
     console.log(fechaBusqueda);
