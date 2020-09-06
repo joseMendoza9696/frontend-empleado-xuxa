@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+import 'moment/locale/es';
 
 import { PedidoModel } from '../../../models/pedido.model';
 import { NodeService } from '../../../services/node.service';
@@ -12,9 +14,11 @@ import { NodeService } from '../../../services/node.service';
 })
 export class CrearPedidoComponent implements OnInit {
 
+  categorias: any = '';
+
   pedido: PedidoModel = new PedidoModel();
-  // tipo del producto 
-  tipoProducto: string = 'Pizzas';
+  // tipo del producto
+  tipoProducto: string = '';
   // lista de productos segun tipoProducto
   productos: any;
   // ordenes de nuestro pedido, esta en el formulario
@@ -33,15 +37,16 @@ export class CrearPedidoComponent implements OnInit {
   constructor( private node: NodeService, private router: Router ) { }
 
   ngOnInit() {
-    this.pedirProductos(this.tipoProducto);
+    this.node.listarCategorias().subscribe(resp => {
+      this.categorias = resp;
+    });
   }
-  
-  pedirProductos(tipo: string) {
-    this.tipoProducto = tipo;
-    
-    this.node.listarProductosTipo(tipo).subscribe( resp => {
+
+  pedirProductos(categoria: string, index) {
+    this.tipoProducto = this.categorias[index].nombre;
+
+    this.node.listarProductosCategoria(categoria).subscribe( resp => {
       this.productos = resp;
-  
     });
   }
 
@@ -63,36 +68,45 @@ export class CrearPedidoComponent implements OnInit {
   login(form: NgForm) {
     if (form.invalid) { return ;}
     let orden: any[] = [];
-    
+
     for (let i = 0; i < this.ordenes.length; i++) {
       let o = this.ordenes[i];
       if (this.descrip[i] === undefined) {
-        this.descrip[i] = '' 
+        this.descrip[i] = ''
       }
       if (this.cant[i] === undefined) {
         this.cant[i] = 1;
       }
       orden[i] = {
-        id_producto: o._id,
+        producto_id: o._id,
         descripcion: this.descrip[i],
         cantidad: this.cant[i]
       }
     }
 
+    let h = new Date();
+    let ho = moment(h);
+    let hoy = ho.format('YYYY-MM-DD');
+    let hora = ho.format('HH:mm a');
+
+
     // console.log(orden);
     this.pedido = {
       ...this.pedido,
       orden: orden,
+      fecha_creacion: hoy,
+      hora_creacion: hora,
+      cuenta_pedido: this.precioTotal
     }
+
 
     this.node.crearPedido(this.pedido).subscribe( resp => {
       console.log(resp);
+      this.router.navigateByUrl('/#');
     });
 
-    console.log(this.pedido);
-    this.router.navigateByUrl('/#');
   }
-  
+
   descripcion(index: number, desc: any) {
 
     this.descrip[index] = desc.value;
@@ -114,6 +128,10 @@ export class CrearPedidoComponent implements OnInit {
     for (let i = 0; i < this.precios.length; i++) {
       this.precioTotal = this.precioTotal + this.precios[i];
     }
+  }
+
+  paraPedido(event) {
+    this.pedido.tipo = event.target.value;
   }
 
 }

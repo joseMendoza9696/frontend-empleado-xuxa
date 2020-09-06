@@ -25,9 +25,11 @@ export class FechaPedidoComponent implements OnInit {
 
     this.node.fechaPedidos(hoy).subscribe( resp => {
       this.pedidos = resp;
-      this.pedidos = this.listarProductos(this.pedidos);
       console.log(this.pedidos);
+      this.pedidos = this.listarProductos(this.pedidos);
+      // console.log(this.pedidos);
     });
+
   }
 
   listarProductos(pedidos: any) {
@@ -38,7 +40,8 @@ export class FechaPedidoComponent implements OnInit {
       for (let j = 0; j < pedido.orden.length; j++) {
         let orden = pedido.orden[j];
 
-        this.node.listarProducto( orden.id_producto ).subscribe( resp => {
+        this.node.listarProducto( orden.producto_id ).subscribe( resp => {
+          console.log(resp);
           pedidos[i].orden[j] = {
             ...orden,
             producto: resp

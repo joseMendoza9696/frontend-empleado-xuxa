@@ -12,9 +12,11 @@
             <div class="card-body" >
 
                 <div class="list-group">
-                    <button type="button" class="list-group-item list-group-item-action" (click)="pedirProductos('Pizzas')" >Pizzas</button>
-                    <button type="button" class="list-group-item list-group-item-action" (click)="pedirProductos('Alitas')" >Alitas</button>
-                    <button type="button" class="list-group-item list-group-item-action" (click)="pedirProductos('Refrescos')" >Refrescos</button>
+                    <button
+                      *ngFor="let categ of categorias; let i = index;"
+                      type="button"
+                      class="list-group-item list-group-item-action"
+                      (click)="pedirProductos(categ._id, i)" > {{ categ.nombre }} </button>
                 </div>
             </div>
         </div>
@@ -33,7 +35,13 @@
                 <form (ngSubmit)="login(f)" #f="ngForm" >
                     <div class="form-group">
                       <h5>Nombre del cliente: </h5>
-                      <input [(ngModel)]="pedido.nombreCliente" name="nombreCliente" type="text" class="form-control" >
+                      <input [(ngModel)]="pedido.nombre_cliente" name="nombreCliente" type="text" class="form-control" >
+                      <label for="exampleFormControlSelect1">Para:</label>
+                      <select (change)="paraPedido($event)" class="form-control" id="exampleFormControlSelect1">
+                        <option value="Llevar" >Llevar</option>
+                        <option value="Mesa" >Mesa</option>
+                        <option value="Delivery" >Delivery</option>
+                      </select>
                     </div>
                     <!-- ordenes -->
                     <div class="form-group">
@@ -45,7 +53,12 @@
                                 <div class="col-md-8" >
                                     <p> <span class="badge badge-danger" > {{ orden.nombre }} </span> </p>
                                     <textarea  class="form-control" rows="1" id="descripcion" #des (input)="descripcion(i, des)" placeholder="Descripcion ..."></textarea>
-                                    <input  type="number" name="cantidad" #cant (input)="cantidad(i, cant)" placeholder="Cantidad" >
+                                    <input
+                                      value="1"
+                                      type="number"
+                                      name="cantidad"
+                                      #cant
+                                      (input)="cantidad(i, cant)" placeholder="Cantidad" >
                                 </div>
                                 <div class="col-md-4">
                                     <p> <span class="badge badge-success" >{{ precios[i] }} Bs</span> </p>
@@ -61,10 +74,10 @@
                         <h5>Datos de la factura:</h5>
                         <div class="row" >
                             <label > Numero de NIT: </label>
-                            <input [(ngModel)]="pedido.nit"  type="text" name="nit">
+                            <input [(ngModel)]="pedido.nit_factura"  type="text" name="nit">
                             <br>
                             <label >Nombres:</label>
-                            <input [(ngModel)]="pedido.nombre" type="text" name="nit">
+                            <input [(ngModel)]="pedido.nombre_factura" type="text" name="nit">
                         </div>
                     </div>
 
@@ -82,7 +95,7 @@
                   </form>
             </div>
         </div>
-        
+
     </div>
     <!-- lista de productos segun el tipo -->
     <div class="col-md-4" >

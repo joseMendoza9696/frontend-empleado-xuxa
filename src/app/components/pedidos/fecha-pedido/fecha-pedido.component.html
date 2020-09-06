@@ -18,27 +18,24 @@
       </div>
 
     </div>
-    
+
     <div *ngIf="pedidos != undefined" >
-      <div class="card" *ngFor="let pedido of pedidos; index as i" >
+      <div class="card" *ngFor="let pedido of pedidos;let i = index;" >
           <div class="card-header">
             <div class="row" >
               <div class="col-md-6" >
-                Cliente: {{ pedido.nombreCliente }}
+                Cliente: {{ pedido.nombre_cliente }}
               </div>
               <div class="col-md-6" >
-                Fecha y hora: {{ pedido.creacionFecha }}, {{ pedido.creacionHora }}
+                Fecha y hora: {{ pedido.fecha_creacion }}, {{ pedido.hora_creacion }}
               </div>
             </div>
           </div>
           <div class="card-body">
             <h5 class="card-title">Ordenes</h5>
-            <p class="card-text" *ngFor="let orden of pedido.orden" > 
-              Cantidad: {{ orden.cantidad }},, Nombre: {{ orden.producto.nombre }},, Descripcion: {{ orden.descripcion }} 
+            <p class="card-text" *ngFor="let orden of pedido.orden" >
+              Cantidad: {{ orden.cantidad }},, Nombre: {{ orden.producto.nombre }},, Descripcion: {{ orden.descripcion }}
             </p>
-            <button class="btn btn-secondary " *ngIf="pedido.estado" >Completado</button>
-            <button class="btn btn-outline-danger" *ngIf="!pedido.estado" (click)="completar(i)" >Completar</button>
-            
         </div>
       </div>
     </div>

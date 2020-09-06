@@ -17,19 +17,17 @@ export class NodeService {
 
   userToken: string;
   userId: string;
-  userCargo: string;
   userCorreo: string;
   userNombre: string;
 
   constructor( private http: HttpClient ) { }
 
   // readonly URL: string = 'http://localhost:3000';
-  readonly URL: string = 'https://mendoza-nodejs-xuxas.herokuapp.com';
+  readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
   private header = new HttpHeaders();
 
   private token = localStorage.getItem('tokenEmpleado');
   private id = localStorage.getItem('idEmpleado');
-  private cargo = localStorage.getItem('cargoEmpleado');
   private correo = localStorage.getItem('correoEmpleado');
   private nombre = localStorage.getItem('nombreEmpleado');
 
@@ -42,23 +40,21 @@ export class NodeService {
 
     return this.http.post( `${this.URL}/emp/login`, loginData ).pipe(
       map( resp => {
-        this.guardarToken( resp['token'], resp['empleado']['_id'], resp['empleado']['cargo'], resp['empleado']['correo'], resp['empleado']['nombre'] );
+        this.guardarToken( resp['token'], resp['empleado']['_id'], resp['empleado']['correo'], resp['empleado']['nombre'] );
         return resp;
       })
     );
   }
 
-  private guardarToken( token: string, id: string, cargo: string, correo: string, nombre: string ) {
+  private guardarToken( token: string, id: string, correo: string, nombre: string ) {
     this.userToken = token;
     this.userId = id;
-    this.userCargo = cargo;
     this.userCorreo = correo;
     this.userNombre = nombre;
 
 
     localStorage.setItem( 'tokenEmpleado', token );
     localStorage.setItem( 'idEmpleado', id );
-    localStorage.setItem( 'cargoEmpleado', cargo );
     localStorage.setItem( 'correoEmpleado', correo );
     localStorage.setItem( 'nombreEmpleado', nombre );
   }
@@ -77,11 +73,7 @@ export class NodeService {
   fechaPedidos(fecha: any) {
     this.header = this.header.set('Authorization', this.token);
 
-    let f = {
-      fecha: fecha
-    }
-
-    return this.http.post(`${this.URL}/empleado/pedidos/fecha`, f, { headers: this.header } );
+    return this.http.get(`${this.URL}/pedidosFecha?fecha=${fecha}`, { headers: this.header } );
   }
 
   todosPedidos() {
@@ -93,11 +85,7 @@ export class NodeService {
   crearPedido( pedido: PedidoModel ) {
     this.header = this.header.set('Authorization', this.token);
 
-    const pedidoData = {
-      ...pedido
-    }
-
-    return this.http.post(`${this.URL}/emp/pedido/nuevo`, pedidoData, { headers: this.header } );
+    return this.http.post(`${this.URL}/crearPedido`, pedido, { headers: this.header } );
   }
 
   actualizarPedido(idP: string) {
@@ -119,13 +107,19 @@ export class NodeService {
   listarProducto(id: string) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/emp/producto/${id}`, { headers: this.header });
+    return this.http.get(`${this.URL}/producto/${id}`, { headers: this.header });
   }
 
-  listarProductosTipo(tipo: string) {
+  listarProductosCategoria(categoria: string) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/emp/productos/${tipo}`, { headers: this.header });
+    return this.http.get(`${this.URL}/listar-producto?categoria=${categoria}`, { headers: this.header });
+  }
+
+  listarCategorias() {
+    this.header = this.header.set('Authorization', this.token);
+
+    return this.http.get(`${this.URL}/listar-categorias`, { headers: this.header });
   }
 
 }
