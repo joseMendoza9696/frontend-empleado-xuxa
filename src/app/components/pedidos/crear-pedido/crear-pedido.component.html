@@ -23,7 +23,7 @@
 
     </div>
     <!-- formulario del pedido -->
-    <div class="col-md-6" >
+    <div class="col-md-7" >
 
         <div class="card border-warning">
             <div class="card-header border-warning" >
@@ -31,53 +31,96 @@
                     <h2>Pedido</h2>
                 </div>
             </div>
+
             <div class="card-body" >
                 <form (ngSubmit)="login(f)" #f="ngForm" >
+
                     <div class="form-group">
-                      <h5>Nombre del cliente: </h5>
-                      <input [(ngModel)]="pedido.nombre_cliente" name="nombreCliente" type="text" class="form-control" >
-                      <label for="exampleFormControlSelect1">Para:</label>
-                      <select (change)="paraPedido($event)" class="form-control" id="exampleFormControlSelect1">
-                        <option value="Llevar" >Llevar</option>
-                        <option value="Mesa" >Mesa</option>
-                        <option value="Delivery" >Delivery</option>
-                      </select>
-                    </div>
-                    <!-- ordenes -->
-                    <div class="form-group">
-                        <h5>Ordenes: </h5>
 
-                        <div *ngFor="let orden of ordenes; index as i">
+                      <div class="row">
 
-                            <div class="row" >
-                                <div class="col-md-8" >
-                                    <p> <span class="badge badge-danger" > {{ orden.nombre }} </span> </p>
-                                    <textarea  class="form-control" rows="1" id="descripcion" #des (input)="descripcion(i, des)" placeholder="Descripcion ..."></textarea>
-                                    <input
-                                      value="1"
-                                      type="number"
-                                      name="cantidad"
-                                      #cant
-                                      (input)="cantidad(i, cant)" placeholder="Cantidad" >
-                                </div>
-                                <div class="col-md-4">
-                                    <p> <span class="badge badge-success" >{{ precios[i] }} Bs</span> </p>
-                                    <button type="button" class="btn btn-outline-danger" (click)="quitarOrden(i)" >Quitar</button>
-                                </div>
-                            </div>
-                            <hr>
-
+                        <div class="col-md-6">
+                          <h5 class="text-primary" >Nombre del cliente: </h5>
+                          <input [(ngModel)]="pedido.nombre_cliente" name="nombreCliente" type="text" class="form-control" >
                         </div>
 
+                        <div class="col-md-6">
+                          <label for="exampleFormControlSelect1">Para:</label>
+                          <select (change)="paraPedido($event)" class="form-control" id="exampleFormControlSelect1">
+                            <option value="Llevar" >Llevar</option>
+                            <option value="Mesa" >Mesa</option>
+                            <option value="Delivery" >Delivery</option>
+                          </select>
+                        </div>
+
+                      </div>
+
                     </div>
+
+                    <hr>
+
+                    <!-- ordenes -->
                     <div class="form-group">
-                        <h5>Datos de la factura:</h5>
+                        <h5 class="text-danger" >Ordenes: </h5>
+
+                            <div *ngFor="let orden of ordenes; index as i">
+                              <div
+                                class="card "
+                                [ngClass]="{ 'border-danger': ordenColor[i]==='pizzas', 'border-warning': ordenColor[i]==='alitas', 'border-info': ordenColor[i]==='refrescos', 'border-primary': ordenColor[i]==='helados' }"
+                              >
+                                <div class="card-body">
+                                  <div class="row" >
+                                      <div class="col-md-8" >
+                                          <p>
+                                            <span
+                                              class="badge"
+                                              [ngClass]="{ 'badge-danger': ordenColor[i] === 'pizzas', 'badge-warning': ordenColor[i]==='alitas', 'badge-info': ordenColor[i]==='refrescos', 'badge-primary': ordenColor[i]==='helados'}"
+                                            >
+                                              {{ orden.nombre }}
+                                            </span>
+                                          </p>
+
+
+                                          <textarea class="form-control" rows="1" id="descripcion" #des (input)="descripcion(i, des)" placeholder="Descripcion ..."></textarea>
+                                          <input
+                                            value="1"
+                                            type="number"
+                                            name="cantidad"
+                                            #cant
+                                            (input)="cantidad(i, cant)" placeholder="Cantidad" >
+                                      </div>
+                                      <div class="col-md-4">
+                                        <p>
+                                            <span
+                                              class="badge"
+                                              [ngClass]="{ 'badge-danger': ordenColor[i] === 'pizzas', 'badge-warning': ordenColor[i]==='alitas', 'badge-info': ordenColor[i]==='refrescos', 'badge-primary': ordenColor[i]==='helados'}"
+                                            >
+                                              {{ precios[i] }} Bs.
+                                            </span>
+                                        </p>
+                                          <button type="button" class="btn btn-outline-danger" (click)="quitarOrden(i)" >Quitar</button>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                            </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <h5 class="text-info" >Datos de la factura:</h5>
                         <div class="row" >
+                          <div class="col-md-6">
                             <label > Numero de NIT: </label>
-                            <input [(ngModel)]="pedido.nit_factura"  type="text" name="nit">
-                            <br>
+                            <input class="form-control" [(ngModel)]="pedido.nit_factura"  type="text" name="nit">
+
+                          </div>
+                          <div class="col-md-6">
                             <label >Nombres:</label>
-                            <input [(ngModel)]="pedido.nombre_factura" type="text" name="nit">
+                            <input class="form-control" [(ngModel)]="pedido.nombre_factura" type="text" name="nit">
+                          </div>
                         </div>
                     </div>
 
@@ -87,7 +130,7 @@
                                 <button class="btn btn-outline-primary" >Enviar</button>
                             </div>
                             <div class="col-md-6" >
-                                <h4> Cuenta total: <span class="badge badge-success" > {{ precioTotal }} Bs </span> </h4>
+                                <h4 class="text-success" > Cuenta total: <span class="badge badge-success" > {{ precioTotal }} Bs </span> </h4>
                             </div>
 
                         </div>
@@ -98,7 +141,7 @@
 
     </div>
     <!-- lista de productos segun el tipo -->
-    <div class="col-md-4" >
+    <div class="col-md-3" >
 
         <div class="card border-secondary ">
             <div class="card-header border-secondary" >

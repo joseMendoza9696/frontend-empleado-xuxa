@@ -14,6 +14,7 @@ import { NodeService } from '../../../services/node.service';
 })
 export class CrearPedidoComponent implements OnInit {
 
+  prod = '';
   categorias: any = '';
 
   pedido: PedidoModel = new PedidoModel();
@@ -23,6 +24,7 @@ export class CrearPedidoComponent implements OnInit {
   productos: any;
   // ordenes de nuestro pedido, esta en el formulario
   ordenes: any = [];
+  ordenColor: any = [];
   // precio total del pedido
   precioTotal: number = 0;
   // numero de nit
@@ -43,6 +45,7 @@ export class CrearPedidoComponent implements OnInit {
   }
 
   pedirProductos(categoria: string, index) {
+    this.prod = this.categorias[index].nombre;
     this.tipoProducto = this.categorias[index].nombre;
 
     this.node.listarProductosCategoria(categoria).subscribe( resp => {
@@ -52,15 +55,20 @@ export class CrearPedidoComponent implements OnInit {
 
   agregarOrden(index: number) {
     this.ordenes.push(this.productos[index]);
+    this.ordenColor.push(this.prod);
+
     this.precios.push(this.productos[index].precio);
     this.cuentaTotal();
 
+    console.log(this.ordenes);
+    console.log(this.ordenColor);
   }
 
   quitarOrden(index: number) {
     // console.log(index);
     // this.precioTotal = this.precioTotal - this.ordenes[index].precio;
     this.ordenes.splice(index, 1);
+    this.ordenColor.splice(index, 1);
     this.precios.splice(index, 1);
     this.cuentaTotal();
   }
