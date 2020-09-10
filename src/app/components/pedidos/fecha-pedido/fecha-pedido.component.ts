@@ -14,38 +14,61 @@ export class FechaPedidoComponent implements OnInit {
 
   pedidos: any = '';
   fechaBusca: Date;
-  ingresos: number = 0;
+  ingresos = 0;
+  categorias: any = '';
 
-  constructor( private node: NodeService ) { }
+  constructor(private node: NodeService) {
+  }
 
   ngOnInit() {
-    let h = new Date();
-    let ho = moment(h);
-    let hoy = ho.format('YYYY-MM-DD');
+
+    const h = new Date();
+    const ho = moment(h);
+    const hoy = ho.format('YYYY-MM-DD');
 
 
-    this.node.fechaPedidos(hoy).subscribe( resp => {
+    this.node.fechaPedidos(hoy).subscribe(async (resp) => {
       this.pedidos = resp;
-      console.log(this.pedidos);
-      this.pedidos = this.listarProductos(this.pedidos);
       // console.log(this.pedidos);
+      this.pedidos = await this.listarProductos(this.pedidos);
+      await this.listarCategorias();
+      console.log(this.pedidos);
     });
   }
 
-  listarProductos(pedidos: any) {
+  // ORDEN
+  // cantidad: 1
+  // categoria: "helados"
+  // descripcion: ""
+  // producto: {
+  //    categoria_id: "5f51987caf3d7403b74f919c"
+  //    nombre: "Helado en vaso (2 porciones)"
+  //    precio: 6
+  // }
+  // _id: "5f519b1caf3d7403b74f91aa"
 
-    for (let i = 0; i < pedidos.length; i++) {
-      let pedido = pedidos[i];
+  listarProductos(pedidos: any) {
+    let categ = '';
+
+    for ( let i = 0; i < pedidos.length; i++) {
+      const pedido = pedidos[i];
       this.ingresos = this.ingresos + pedido.cuenta_pedido;
 
       for (let j = 0; j < pedido.orden.length; j++) {
-        let orden = pedido.orden[j];
+        const orden = pedido.orden[j];
 
         this.node.listarProducto( orden.producto_id ).subscribe( resp => {
-          console.log(resp);
+          // console.log(resp);
+          for (let k = 0; k < this.categorias.length; k++) {
+            if ( resp['categoria_id'] === this.categorias[k]._id ) {
+              console.log('categorias iguales');
+              categ = this.categorias[k].nombre;
+            }
+          }
           pedidos[i].orden[j] = {
             ...orden,
-            producto: resp
+            producto: resp,
+            categoria: categ
           };
         });
       }
@@ -54,11 +77,19 @@ export class FechaPedidoComponent implements OnInit {
     return pedidos;
   }
 
+  listarCategorias() {
+    this.node.listarCategorias().subscribe(resp => {
+      this.categorias = resp;
+
+      console.log(this.categorias);
+    });
+  }
+
   fechaPedido( fecha: any ) {
     // console.log(fecha.value);
     this.ingresos = 0;
-    let fechaB = moment(fecha.value);
-    let fechaBusqueda = fechaB.format('YYYY-MM-DD');
+    const fechaB = moment(fecha.value);
+    const fechaBusqueda = fechaB.format('YYYY-MM-DD');
     console.log(fechaBusqueda);
 
     this.node.fechaPedidos(fechaBusqueda).subscribe( resp => {
@@ -70,9 +101,9 @@ export class FechaPedidoComponent implements OnInit {
 
   pedidosHoy() {
     console.log('hoy');
-    let fecha = new Date();
-    let fechaB = moment(fecha);
-    let fechaBusqueda = fechaB.format('YYYY-MM-DD');
+    const fecha = new Date();
+    const fechaB = moment(fecha);
+    const fechaBusqueda = fechaB.format('YYYY-MM-DD');
 
     this.node.fechaPedidos(fechaBusqueda).subscribe( resp => {
       this.pedidos = resp;

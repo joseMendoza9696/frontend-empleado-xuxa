@@ -21,19 +21,22 @@
     </div>
 
     <div *ngIf="pedidos != undefined" >
-      <div class="card" *ngFor="let pedido of pedidos;let i = index;" >
+      <div class="card" *ngFor="let pedido of pedidos; let i = index;" >
 
         <div class="card-header">
             <div class="row" >
 
-              <div class="col-md-4" >
-                Cliente: {{ pedido.nombre_cliente }}
+              <div class="col-md-3" >
+                <h3> <span class="badge badge-dark" >Cliente: {{ pedido.nombre_cliente }}</span> </h3>
               </div>
-              <div class="col-md-4" >
+              <div class="col-md-3" >
                 Fecha y hora: {{ pedido.fecha_creacion }}, {{ pedido.hora_creacion }}
               </div>
-              <div class="col-md-4" >
-                Cuenta: {{ pedido.cuenta_pedido }} Bs
+              <div class="col-md-3" >
+                <h5> <span class="badge badge-success" >Cuenta: {{ pedido.cuenta_pedido }} Bs</span> </h5>
+              </div>
+              <div class="col-md-3">
+                <h5> <span class="badge badge-info" > {{ pedido.tipo }} </span> </h5>
               </div>
 
             </div>
@@ -41,12 +44,16 @@
 
           <div class="card-body">
             <h5 class="card-title">Ordenes</h5>
-            <p class="card-text" *ngFor="let orden of pedido.orden" >
-              Cantidad: {{ orden.cantidad }},, Nombre: {{ orden.producto.nombre }},, Descripcion: {{ orden.descripcion }}
-            </p>
-        </div>
+            <div class="card-text" *ngFor="let orden of pedido.orden" >
+              <span class="badge " [ngClass]="{ 'badge-danger': orden.categoria === 'pizzas', 'badge-warning': orden.categoria === 'alitas', 'badge-info': orden.categoria === 'refrescos', 'badge-primary': orden.categoria === 'helados' }" >{{ orden.categoria }} </span>
+              <p class="font-weight-bolder"> {{ orden.cantidad }}: {{ orden.producto.nombre }} </p>
+              <p class="font-weight-bolder"> {{ orden.descripcion }} </p>
+            </div>
+          </div>
+        <br>
       </div>
     </div>
+
 
 
     <div *ngIf="pedidos === ''" >
