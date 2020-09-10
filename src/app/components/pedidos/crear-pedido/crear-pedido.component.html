@@ -41,7 +41,13 @@
 
                         <div class="col-md-6">
                           <h5 class="text-primary" >Nombre del cliente: </h5>
-                          <input [(ngModel)]="pedido.nombre_cliente" name="nombreCliente" type="text" class="form-control" >
+                          <input
+                            [(ngModel)]="pedido.nombre_cliente"
+                            required
+                            minlength="2"
+                            name="nombre_cliente"
+                            type="text"
+                            class="form-control" >
                         </div>
 
                         <div class="col-md-6">
@@ -127,7 +133,7 @@
                     <div class="form-group">
                         <div class="row" >
                             <div class="col-md-6" >
-                                <button class="btn btn-outline-primary" >Enviar</button>
+                                <button class="btn btn-outline-primary" >Enviar e imprimir</button>
                             </div>
                             <div class="col-md-6" >
                                 <h4 class="text-success" > Cuenta total: <span class="badge badge-success" > {{ precioTotal }} Bs </span> </h4>

@@ -75,6 +75,10 @@ export class CrearPedidoComponent implements OnInit {
 
   login(form: NgForm) {
     if (form.invalid) { return ;}
+    if (this.pedido.orden === undefined) {
+      return;
+    }
+
     let orden: any[] = [];
 
     for (let i = 0; i < this.ordenes.length; i++) {
