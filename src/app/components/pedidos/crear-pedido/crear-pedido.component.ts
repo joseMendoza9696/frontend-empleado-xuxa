@@ -112,14 +112,12 @@ export class CrearPedidoComponent implements OnInit {
       cuenta_pedido: this.precioTotal
     };
 
-    this.imprimir();
 
-
-
-    // this.node.crearPedido(this.pedido).subscribe( resp => {
-    //   console.log(resp);
-    //   this.router.navigateByUrl('/#');
-    // });
+    this.node.crearPedido(this.pedido).subscribe( resp => {
+      console.log(resp);
+      this.imprimir();
+      this.router.navigateByUrl('/#');
+    });
 
   }
 

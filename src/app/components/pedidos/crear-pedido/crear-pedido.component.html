@@ -104,7 +104,10 @@
                                               {{ precios[i] }} Bs.
                                             </span>
                                         </p>
-                                          <button type="button" class="btn btn-outline-danger" (click)="quitarOrden(i)" >Quitar</button>
+                                          <button
+                                            type="button"
+                                            class="btn btn-outline-danger"
+                                            (click)="quitarOrden(i)" >Quitar</button>
                                       </div>
                                   </div>
                                 </div>
@@ -133,7 +136,7 @@
                     <div class="form-group">
                         <div class="row" >
                             <div class="col-md-6" >
-                                <button class="btn btn-outline-primary" (click)="login(f)" >Enviar e imprimir</button>
+                                <button class="btn btn-outline-primary" type="submit" >Enviar e imprimir</button>
                             </div>
                             <div class="col-md-6" >
                                 <h4 class="text-success" > Cuenta total: <span class="badge badge-success" > {{ precioTotal }} Bs </span> </h4>
