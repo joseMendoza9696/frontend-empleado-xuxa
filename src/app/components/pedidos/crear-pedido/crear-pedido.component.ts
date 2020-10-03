@@ -35,6 +35,7 @@ export class CrearPedidoComponent implements OnInit {
   cant: number[] = [];
   // precios de cada pedido
   precios: number[] = [];
+  ticket: any;
 
   constructor( private node: NodeService, private router: Router ) { }
 
@@ -75,9 +76,9 @@ export class CrearPedidoComponent implements OnInit {
 
   login(form: NgForm) {
     if (form.invalid) { return ;}
-    if (this.pedido.orden === undefined) {
-      return;
-    }
+    // if (this.pedido.orden === undefined) {
+    //   return;
+    // }
 
     let orden: any[] = [];
 
@@ -109,13 +110,16 @@ export class CrearPedidoComponent implements OnInit {
       fecha_creacion: hoy,
       hora_creacion: hora,
       cuenta_pedido: this.precioTotal
-    }
+    };
+
+    this.imprimir();
 
 
-    this.node.crearPedido(this.pedido).subscribe( resp => {
-      console.log(resp);
-      this.router.navigateByUrl('/#');
-    });
+
+    // this.node.crearPedido(this.pedido).subscribe( resp => {
+    //   console.log(resp);
+    //   this.router.navigateByUrl('/#');
+    // });
 
   }
 
@@ -144,6 +148,29 @@ export class CrearPedidoComponent implements OnInit {
 
   paraPedido(event) {
     this.pedido.tipo = event.target.value;
+  }
+
+  imprimir() {
+    console.log('Imprimiendo...');
+
+    const t = window.open('', '');
+    t.document.writeln(`<p> <strong>Cliente: </strong> ${this.pedido.nombre_cliente} </p>`);
+
+    if (this.pedido.tipo === undefined) {
+      t.document.writeln(`<p> <strong>Para: </strong> Llevar </p>`);
+    } else {
+      t.document.writeln(`<p> <strong>Para: </strong> ${this.pedido.tipo} </p>`);
+    }
+
+    t.document.writeln(`<p> <strong>----------------------------</strong></p>`);
+    console.log( 'Impr ord:', this.ordenes);
+
+    for ( let i = 0; i < this.ordenColor.length; i++ ) {
+      t.document.writeln(`<p> <strong>${this.ordenColor[i]}:</strong> ${this.ordenes[i].nombre}  <strong>...</strong>  ${this.descrip[i]}</p>`);
+    }
+    t.document.close();
+    t.focus();
+    t.print();
   }
 
 }

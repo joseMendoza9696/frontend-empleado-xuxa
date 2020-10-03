@@ -49,6 +49,7 @@ export class FechaPedidoComponent implements OnInit {
 
   listarProductos(pedidos: any) {
     let categ = '';
+    this.ingresos = 0;
 
     for ( let i = 0; i < pedidos.length; i++) {
       const pedido = pedidos[i];
