@@ -6,34 +6,34 @@
     "deprecation": {
       "severity": "warning"
     },
-    "component-class-suffix": true,
-    "contextual-lifecycle": true,
-    "directive-class-suffix": true,
+    "component-class-suffix": false,
+    "contextual-lifecycle": false,
+    "directive-class-suffix": false,
     "directive-selector": [
-      true,
+      false,
       "attribute",
       "app",
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
       "app",
       "kebab-case"
     ],
     "import-blacklist": [
-      true,
+      false,
       "rxjs/Rx"
     ],
     "interface-name": false,
     "max-classes-per-file": false,
     "max-line-length": [
-      true,
+      false,
       140
     ],
     "member-access": false,
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "static-field",
@@ -45,7 +45,7 @@
     ],
     "no-consecutive-blank-lines": false,
     "no-console": [
-      true,
+      false,
       "debug",
       "info",
       "time",
@@ -54,37 +54,37 @@
     ],
     "no-empty": false,
     "no-inferrable-types": [
-      true,
+      false,
       "ignore-params"
     ],
-    "no-non-null-assertion": true,
-    "no-redundant-jsdoc": true,
-    "no-switch-case-fall-through": true,
-    "no-use-before-declare": true,
+    "no-non-null-assertion": false,
+    "no-redundant-jsdoc": false,
+    "no-switch-case-fall-through": false,
+    "no-use-before-declare": false,
     "no-var-requires": false,
     "object-literal-key-quotes": [
-      true,
+      false,
       "as-needed"
     ],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [
-      true,
+      false,
       "single"
     ],
     "trailing-comma": false,
-    "no-conflicting-lifecycle": true,
-    "no-host-metadata-property": true,
-    "no-input-rename": true,
-    "no-inputs-metadata-property": true,
-    "no-output-native": true,
-    "no-output-on-prefix": true,
-    "no-output-rename": true,
-    "no-outputs-metadata-property": true,
-    "template-banana-in-box": true,
-    "template-no-negated-async": true,
-    "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "no-conflicting-lifecycle": false,
+    "no-host-metadata-property": false,
+    "no-input-rename": false,
+    "no-inputs-metadata-property": false,
+    "no-output-native": false,
+    "no-output-on-prefix": false,
+    "no-output-rename": false,
+    "no-outputs-metadata-property": false,
+    "template-banana-in-box": false,
+    "template-no-negated-async": false,
+    "use-lifecycle-interface": false,
+    "use-pipe-transform-interface": false
   },
   "rulesDirectory": [
     "codelyzer"

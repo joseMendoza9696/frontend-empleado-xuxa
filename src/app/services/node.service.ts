@@ -70,16 +70,22 @@ export class NodeService {
 
   // TODO: PEDIDOS
 
-  fechaPedidos(fecha: any) {
+  fechaPedidos(fecha: any, limit: number, skip: number) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/pedidosFecha?fecha=${fecha}`, { headers: this.header } );
+    return this.http.get(`${this.URL}/pedidosFecha?fecha=${fecha}&limit=${limit}&skip=${skip}`, { headers: this.header } );
+  }
+
+  ingresoTotal(fecha: any) {
+    this.header = this.header.set('Authorization', this.token);
+
+    return this.http.get(`${this.URL}/pedidosFechaPrecio?fecha=${fecha}`, { headers: this.header });
   }
 
   todosPedidos() {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/emp/pedidos/${this.id}`,{ headers: this.header });
+    return this.http.get(`${this.URL}/emp/pedidos/${this.id}`, { headers: this.header });
   }
 
   crearPedido( pedido: PedidoModel ) {
@@ -92,7 +98,7 @@ export class NodeService {
     this.header = this.header.set('Authorization', this.token);
     const patch = {
       estado: true
-    }
+    };
 
     return this.http.patch(`${this.URL}/emp/pedido/${idP}/${this.id}`, patch, { headers: this.header });
 

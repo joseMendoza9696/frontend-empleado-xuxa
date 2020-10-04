@@ -54,6 +54,27 @@
       </div>
     </div>
 
+  <div class="row m-3">
+    <div class="col">
+
+    </div>
+    <div class="col-lg-2">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <button class="page-link" (click)="previousPage()" *ngIf="pageSkip > 0" >Previous</button>
+          </li>
+          <li class="page-item">
+            <button class="page-link" (click)="nextPage()"  >Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+
 
 
     <div *ngIf="pedidos === ''" >

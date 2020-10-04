@@ -13,9 +13,14 @@ import 'moment/locale/es';
 export class FechaPedidoComponent implements OnInit {
 
   pedidos: any = '';
-  fechaBusca: Date;
+
+  fechaActualBusqueda: any;
+
   ingresos = 0;
   categorias: any = '';
+
+  pageLimit: number = 2;
+  pageSkip: number = 0;
 
   constructor(private node: NodeService) {
   }
@@ -26,13 +31,19 @@ export class FechaPedidoComponent implements OnInit {
     const ho = moment(h);
     const hoy = ho.format('YYYY-MM-DD');
 
+    this.fechaActualBusqueda = hoy;
 
-    this.node.fechaPedidos(hoy).subscribe(async (resp) => {
+
+    this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
       this.pedidos = resp;
       // console.log(this.pedidos);
       this.pedidos = await this.listarProductos(this.pedidos);
       await this.listarCategorias();
       console.log(this.pedidos);
+    });
+
+    this.node.ingresoTotal(hoy).subscribe( (resp) => {
+      this.ingresos = resp['ingreso'];
     });
   }
 
@@ -49,11 +60,11 @@ export class FechaPedidoComponent implements OnInit {
 
   listarProductos(pedidos: any) {
     let categ = '';
-    this.ingresos = 0;
+    // this.ingresos = 0;
 
     for ( let i = 0; i < pedidos.length; i++) {
       const pedido = pedidos[i];
-      this.ingresos = this.ingresos + pedido.cuenta_pedido;
+      // this.ingresos = this.ingresos + pedido.cuenta_pedido;
 
       for (let j = 0; j < pedido.orden.length; j++) {
         const orden = pedido.orden[j];
@@ -88,12 +99,17 @@ export class FechaPedidoComponent implements OnInit {
 
   fechaPedido( fecha: any ) {
     // console.log(fecha.value);
-    this.ingresos = 0;
+    // this.ingresos = 0;
     const fechaB = moment(fecha.value);
     const fechaBusqueda = fechaB.format('YYYY-MM-DD');
-    console.log(fechaBusqueda);
 
-    this.node.fechaPedidos(fechaBusqueda).subscribe( resp => {
+    this.fechaActualBusqueda = fechaBusqueda;
+
+    this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
+      this.ingresos = resp['ingreso'];
+    });
+
+    this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
       this.pedidos = resp;
       this.pedidos = this.listarProductos(this.pedidos);
       console.log(this.pedidos);
@@ -106,7 +122,41 @@ export class FechaPedidoComponent implements OnInit {
     const fechaB = moment(fecha);
     const fechaBusqueda = fechaB.format('YYYY-MM-DD');
 
-    this.node.fechaPedidos(fechaBusqueda).subscribe( resp => {
+    this.fechaActualBusqueda = fechaBusqueda;
+
+    this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
+      this.ingresos = resp['ingreso'];
+    });
+
+    this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
+      this.pedidos = resp;
+      this.pedidos = this.listarProductos(this.pedidos);
+      console.log(this.pedidos);
+    });
+  }
+
+  nextPage() {
+    this.pageSkip = this.pageSkip + this.pageLimit;
+
+    this.node.ingresoTotal(this.fechaActualBusqueda).subscribe( resp => {
+      this.ingresos = resp['ingreso'];
+    });
+
+    this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
+      this.pedidos = resp;
+      this.pedidos = this.listarProductos(this.pedidos);
+      console.log(this.pedidos);
+    });
+  }
+
+  previousPage() {
+    this.pageSkip = this.pageSkip - this.pageLimit;
+
+    this.node.ingresoTotal(this.fechaActualBusqueda).subscribe( resp => {
+      this.ingresos = resp['ingreso'];
+    });
+
+    this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
       this.pedidos = resp;
       this.pedidos = this.listarProductos(this.pedidos);
       console.log(this.pedidos);
