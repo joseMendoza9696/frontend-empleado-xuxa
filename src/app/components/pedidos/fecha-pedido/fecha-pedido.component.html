@@ -20,6 +20,8 @@
 
     </div>
 
+  <h1> {{ convertirFecha(fechaActualBusquedaFormat) }} </h1>
+
     <div *ngIf="pedidos != undefined" >
       <div class="card" *ngFor="let pedido of pedidos; let i = index;" >
 
@@ -30,7 +32,11 @@
                 <h3> <span class="badge badge-dark" >Cliente: {{ pedido.nombre_cliente }}</span> </h3>
               </div>
               <div class="col-md-3" >
-                Fecha y hora: {{ pedido.fecha_creacion }}, {{ pedido.hora_creacion }}
+                <h5>
+                  <span class="badge badge-warning" >
+                    Hora: {{ pedido.hora_creacion }}
+                  </span>
+                </h5>
               </div>
               <div class="col-md-3" >
                 <h5> <span class="badge badge-success" >Cuenta: {{ pedido.cuenta_pedido }} Bs</span> </h5>
@@ -65,7 +71,7 @@
             <button class="page-link" (click)="previousPage()" *ngIf="pageSkip > 0" >Previous</button>
           </li>
           <li class="page-item">
-            <button class="page-link" (click)="nextPage()"  >Next</button>
+            <button class="page-link" (click)="nextPage()" *ngIf="pedidos.length > 0" >Next</button>
           </li>
         </ul>
       </nav>

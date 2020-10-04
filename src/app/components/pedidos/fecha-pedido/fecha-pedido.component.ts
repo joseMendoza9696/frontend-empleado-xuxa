@@ -15,11 +15,13 @@ export class FechaPedidoComponent implements OnInit {
   pedidos: any = '';
 
   fechaActualBusqueda: any;
+  fechaActualBusquedaFormat: any;
+
 
   ingresos = 0;
   categorias: any = '';
 
-  pageLimit: number = 2;
+  pageLimit: number = 10;
   pageSkip: number = 0;
 
   constructor(private node: NodeService) {
@@ -32,6 +34,7 @@ export class FechaPedidoComponent implements OnInit {
     const hoy = ho.format('YYYY-MM-DD');
 
     this.fechaActualBusqueda = hoy;
+    this.fechaActualBusquedaFormat = ho;
 
 
     this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
@@ -47,16 +50,10 @@ export class FechaPedidoComponent implements OnInit {
     });
   }
 
-  // ORDEN
-  // cantidad: 1
-  // categoria: "helados"
-  // descripcion: ""
-  // producto: {
-  //    categoria_id: "5f51987caf3d7403b74f919c"
-  //    nombre: "Helado en vaso (2 porciones)"
-  //    precio: 6
-  // }
-  // _id: "5f519b1caf3d7403b74f91aa"
+
+  convertirFecha(fecha) {
+    return fecha.format('dddd, D [de] MMMM [del] YYYY');
+  }
 
   listarProductos(pedidos: any) {
     let categ = '';
@@ -104,6 +101,7 @@ export class FechaPedidoComponent implements OnInit {
     const fechaBusqueda = fechaB.format('YYYY-MM-DD');
 
     this.fechaActualBusqueda = fechaBusqueda;
+    this.fechaActualBusquedaFormat = fechaB;
 
     this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
       this.ingresos = resp['ingreso'];
@@ -123,6 +121,7 @@ export class FechaPedidoComponent implements OnInit {
     const fechaBusqueda = fechaB.format('YYYY-MM-DD');
 
     this.fechaActualBusqueda = fechaBusqueda;
+    this.fechaActualBusquedaFormat = fechaB;
 
     this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
       this.ingresos = resp['ingreso'];

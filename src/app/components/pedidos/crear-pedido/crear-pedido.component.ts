@@ -152,6 +152,7 @@ export class CrearPedidoComponent implements OnInit {
     console.log('Imprimiendo...');
 
     const t = window.open('', '');
+    t.document.writeln(`<p> <strong> ${ this.pedido.hora_creacion } </p>`);
     t.document.writeln(`<p> <strong>Cliente: </strong> ${this.pedido.nombre_cliente} </p>`);
 
     if (this.pedido.tipo === undefined) {
