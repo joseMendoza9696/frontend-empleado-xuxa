@@ -22,7 +22,7 @@ export class TodosPedidoComponent implements OnInit {
       this.pedidos = resp;
       // console.log(this.pedidos);
       this.pedidos = this.listarProductos(this.pedidos);
-      
+
       console.log(this.pedidos);
     });
   }
@@ -33,7 +33,7 @@ export class TodosPedidoComponent implements OnInit {
     let fechaBusqueda = fechaB.format('YYYY-MM-DD');
     console.log(fechaBusqueda);
 
-    this.node.fechaPedidos(fechaBusqueda).subscribe( resp => {
+    this.node.fechaPedidos(fechaBusqueda, 2 ,2).subscribe( resp => {
       this.pedidos = resp;
       this.pedidos = this.listarProductos(this.pedidos);
       console.log(this.pedidos);
