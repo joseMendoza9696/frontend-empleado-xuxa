@@ -161,11 +161,10 @@ export class CrearPedidoComponent implements OnInit {
       t.document.writeln(`<p> <strong>Para: </strong> ${this.pedido.tipo} </p>`);
     }
 
-    t.document.writeln(`<p> <strong>----------------------------</strong></p>`);
-    console.log( 'Impr ord:', this.ordenes);
+    t.document.writeln(`<p>__</p>`);
 
     for ( let i = 0; i < this.ordenColor.length; i++ ) {
-      t.document.writeln(`<p> <strong>${this.ordenColor[i]}:</strong> ${this.ordenes[i].nombre}  <strong>...</strong>  ${this.descrip[i]}</p>`);
+      t.document.writeln(`<p> ${this.cant[i]} : <strong>${this.ordenColor[i]}:</strong> ${this.ordenes[i].nombre}  <strong>...</strong>  ${this.descrip[i]}</p>`);
     }
     t.document.close();
     t.focus();
