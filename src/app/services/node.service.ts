@@ -19,8 +19,8 @@ export class NodeService {
   userId: string;
   userCorreo: string;
   userNombre: string;
-
-  constructor( private http: HttpClient ) { }
+  pedidosBusqueda: any;
+  constructor( private http: HttpClient  ) { }
 
   readonly URL: string = 'http://localhost:3000';
   // readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
@@ -101,7 +101,16 @@ export class NodeService {
     };
 
     return this.http.patch(`${this.URL}/emp/pedido/${idP}/${this.id}`, patch, { headers: this.header });
+  }
 
+  buscarPedidoNombre(fecha: string, nombre: string) {
+    this.header = this.header.set('Authorization', this.token);
+
+    return this.http.get(`${this.URL}/buscarCliente?nombre=${nombre}&fecha=${fecha}`, { headers: this.header });
+  }
+
+  public pedidosPorBusqueda( pedidos: any ) {
+    this.pedidosBusqueda = pedidos;
   }
 
   listarProductos() {

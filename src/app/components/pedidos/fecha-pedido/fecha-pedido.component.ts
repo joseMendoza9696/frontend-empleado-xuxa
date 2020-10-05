@@ -10,8 +10,10 @@ import 'moment/locale/es';
   templateUrl: './fecha-pedido.component.html',
   styles: []
 })
+
 export class FechaPedidoComponent implements OnInit {
 
+  // pedidos: any = GlobalConstant.pedidosBusqueda ;
   pedidos: any = '';
 
   fechaActualBusqueda: any;
@@ -39,10 +41,10 @@ export class FechaPedidoComponent implements OnInit {
 
     this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
       this.pedidos = resp;
-      // console.log(this.pedidos);
+
       this.pedidos = await this.listarProductos(this.pedidos);
       await this.listarCategorias();
-      console.log(this.pedidos);
+      // console.log(this.pedidos);
     });
 
     this.node.ingresoTotal(hoy).subscribe( (resp) => {
@@ -162,5 +164,10 @@ export class FechaPedidoComponent implements OnInit {
     });
   }
 
+}
 
+export function busqueda( ped ) {
+  // console.log( pedidos );
+
+  console.log(this.pedidos);
 }
