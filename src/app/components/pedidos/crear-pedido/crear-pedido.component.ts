@@ -37,6 +37,8 @@ export class CrearPedidoComponent implements OnInit {
   precios: number[] = [];
   ticket: any;
 
+  extras: number = 0;
+
   constructor( private node: NodeService, private router: Router ) { }
 
   ngOnInit() {
@@ -112,6 +114,7 @@ export class CrearPedidoComponent implements OnInit {
       cuenta_pedido: this.precioTotal
     };
 
+    console.log(this.pedido);
 
     this.node.crearPedido(this.pedido).subscribe( resp => {
       console.log(resp);
@@ -124,8 +127,6 @@ export class CrearPedidoComponent implements OnInit {
   descripcion(index: number, desc: any) {
 
     this.descrip[index] = desc.value;
-    console.log(this.descrip);
-
   }
 
   cantidad(index: number, canti: any) {
@@ -136,12 +137,24 @@ export class CrearPedidoComponent implements OnInit {
     // console.log(this.cant);
   }
 
+  agregarExtra( extra: any ) {
+    console.log( parseInt(extra.value, 10) );
+    this.extras = parseInt(extra.value, 10) ;
+    this.cuentaTotal();
+  }
+
   cuentaTotal() {
     console.log(this.precios);
     this.precioTotal = 0;
     for (let i = 0; i < this.precios.length; i++) {
       this.precioTotal = this.precioTotal + this.precios[i];
     }
+
+    if ( isNaN(this.extras) || this.extras < 0) {
+      return ;
+    }
+
+    this.precioTotal =  this.precioTotal + this.extras;
   }
 
   paraPedido(event) {

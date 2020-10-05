@@ -118,6 +118,19 @@
 
                     <hr>
 
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <h5 class="text-secondary" >Extras</h5>
+                      </div>
+                      <div class="col">
+                        <input class="form-control" type="number" #extra (input)="agregarExtra(extra)" [value]="extras" >
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+
                     <div class="form-group">
                         <h5 class="text-info" >Datos de la factura:</h5>
                         <div class="row" >
