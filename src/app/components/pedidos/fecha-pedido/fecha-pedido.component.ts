@@ -41,6 +41,7 @@ export class FechaPedidoComponent implements OnInit {
 
     this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
       this.pedidos = resp;
+      console.log(resp[0].nit_factura);
 
       this.pedidos = await this.listarProductos(this.pedidos);
       await this.listarCategorias();

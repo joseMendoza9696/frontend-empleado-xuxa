@@ -49,11 +49,27 @@
         </div>
 
           <div class="card-body">
-            <h5 class="card-title">Ordenes</h5>
-            <div class="card-text" *ngFor="let orden of pedido.orden" >
-              <span class="badge " [ngClass]="{ 'badge-danger': orden.categoria === 'pizzas', 'badge-warning': orden.categoria === 'alitas', 'badge-info': orden.categoria === 'refrescos', 'badge-primary': orden.categoria === 'helados' }" >{{ orden.categoria }} </span>
-              <p class="font-weight-bolder"> {{ orden.cantidad }}: {{ orden.producto.nombre }} </p>
-              <p class="font-weight-bolder"> {{ orden.descripcion }} </p>
+            <div class="row">
+              <div class="col-7">
+                <h5 class="card-title">Ordenes</h5>
+                <div class="card-text" *ngFor="let orden of pedido.orden" >
+                  <span class="badge " [ngClass]="{ 'badge-danger': orden.categoria === 'pizzas', 'badge-warning': orden.categoria === 'alitas', 'badge-info': orden.categoria === 'refrescos', 'badge-primary': orden.categoria === 'helados' }" >{{ orden.categoria }} </span>
+                  <p class="font-weight-bolder"> {{ orden.cantidad }}: {{ orden.producto.nombre }} </p>
+                  <p class="font-weight-bolder"> {{ orden.descripcion }} </p>
+                </div>
+              </div>
+
+              <div class="col">
+                <div *ngIf="pedido.nombre_factura !== undefined || pedido.nit_factura !== undefined" >
+                  <div class="row">
+                    <p> <strong>nombre:</strong>  {{ pedido.nombre_factura }} </p>
+                  </div>
+                  <div class="row">
+                    <p> <strong>nit:</strong> {{ pedido.nit_factura }}</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         <br>
@@ -68,10 +84,10 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
-            <button class="page-link" (click)="previousPage()" *ngIf="pageSkip > 0" >Previous</button>
+            <button class="page-link" (click)="previousPage()" *ngIf="pageSkip > 0" >Anteriro</button>
           </li>
           <li class="page-item">
-            <button class="page-link" (click)="nextPage()" *ngIf="pedidos.length > 0" >Next</button>
+            <button class="page-link" (click)="nextPage()" *ngIf="pedidos.length > 0" >Siguiente</button>
           </li>
         </ul>
       </nav>
