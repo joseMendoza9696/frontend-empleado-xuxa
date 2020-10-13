@@ -73,6 +73,8 @@ export class CrearPedidoComponent implements OnInit {
     this.ordenes.splice(index, 1);
     this.ordenColor.splice(index, 1);
     this.precios.splice(index, 1);
+    this.descrip.splice(index, 1);
+    this.cant.splice(index, 1);
     this.cuentaTotal();
   }
 
