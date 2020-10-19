@@ -13,4 +13,5 @@ export class PedidoModel {
   // tslint:disable-next-line:variable-name
     cuenta_pedido: number;
     tipo: string;
+    clima: any;
 }

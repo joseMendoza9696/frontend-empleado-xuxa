@@ -26,6 +26,11 @@ export class NodeService {
   readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
   private header = new HttpHeaders();
 
+  readonly WeatherURL: string = 'https://api.openweathermap.org/data/2.5/weather?';
+  private apiKey: string = '3ea95b323ca21f1399996784116faef2';
+  private city: string = 'Riberalta';
+  private units: string = 'metric';
+
   private token = localStorage.getItem('tokenEmpleado');
   private id = localStorage.getItem('idEmpleado');
   private correo = localStorage.getItem('correoEmpleado');
@@ -135,6 +140,10 @@ export class NodeService {
     this.header = this.header.set('Authorization', this.token);
 
     return this.http.get(`${this.URL}/listar-categorias`, { headers: this.header });
+  }
+
+  consultarClima() {
+    return this.http.get(`${this.WeatherURL}q=${this.city}&appid=${this.apiKey}&lang=es&units=${this.units}`);
   }
 
 }

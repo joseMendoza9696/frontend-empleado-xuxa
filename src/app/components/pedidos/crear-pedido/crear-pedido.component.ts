@@ -39,12 +39,24 @@ export class CrearPedidoComponent implements OnInit {
 
   extras: number = 0;
 
+  consultaClima: any = '';
+
   constructor( private node: NodeService, private router: Router ) { }
 
   ngOnInit() {
     this.node.listarCategorias().subscribe(resp => {
       this.categorias = resp;
     });
+
+    this.node.consultarClima().subscribe(resp => {
+      this.consultaClima = {
+        id_weather: resp['weather'][0]['id'],
+        description: resp['weather'][0]['description'],
+        temp: resp['main']['temp'],
+        feels_like: resp['main']['feels_like']
+      };
+    });
+
   }
 
   pedirProductos(categoria: string, index) {
@@ -78,7 +90,7 @@ export class CrearPedidoComponent implements OnInit {
     this.cuentaTotal();
   }
 
-  login(form: NgForm) {
+  login(form: NgForm){
     if (form.invalid) { return ;}
     // if (this.pedido.orden === undefined) {
     //   return;
@@ -113,10 +125,10 @@ export class CrearPedidoComponent implements OnInit {
       orden: orden,
       fecha_creacion: hoy,
       hora_creacion: hora,
-      cuenta_pedido: this.precioTotal
+      cuenta_pedido: this.precioTotal,
+      clima: this.consultaClima
     };
 
-    console.log(this.pedido);
 
     this.node.crearPedido(this.pedido).subscribe( resp => {
       console.log(resp);
