@@ -10,9 +10,9 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ROUTES } from './app.routes';
 import { CrearPedidoComponent } from './components/pedidos/crear-pedido/crear-pedido.component';
-import { TodosPedidoComponent } from './components/pedidos/todos-pedido/todos-pedido.component';
 import { FechaPedidoComponent } from './components/pedidos/fecha-pedido/fecha-pedido.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +20,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     HomeComponent,
     CrearPedidoComponent,
-    TodosPedidoComponent,
     FechaPedidoComponent,
     NavbarComponent,
+    EstadisticasComponent,
   ],
   imports: [
     BrowserModule,
