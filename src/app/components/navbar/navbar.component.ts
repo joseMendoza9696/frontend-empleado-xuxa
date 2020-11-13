@@ -13,9 +13,10 @@ export class NavbarComponent implements OnInit {
 
   @Output() busqueda = new EventEmitter();
 
+
   constructor( private service: NodeService ) { }
 
-  nombre = localStorage.getItem('nombreEmpleado');
+  nombre: string = localStorage.getItem('nombreEmpleado');
   ngOnInit() {
   }
 
