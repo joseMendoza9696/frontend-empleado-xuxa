@@ -22,8 +22,8 @@ export class NodeService {
   pedidosBusqueda: any;
   constructor( private http: HttpClient  ) { }
 
-  readonly URL: string = 'http://localhost:3000';
-  // readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
+  // readonly URL: string = 'http://localhost:3000';
+  readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
   private header = new HttpHeaders();
 
   readonly WeatherURL: string = 'https://api.openweathermap.org/data/2.5/weather?';
