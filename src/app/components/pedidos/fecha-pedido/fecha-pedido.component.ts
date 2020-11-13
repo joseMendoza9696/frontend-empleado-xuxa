@@ -49,6 +49,7 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     this.node.ingresoTotal(hoy).subscribe( (resp) => {
+      console.log(resp);
       this.ingresos = resp['ingreso'];
     });
   }

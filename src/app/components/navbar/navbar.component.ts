@@ -16,20 +16,25 @@ export class NavbarComponent implements OnInit {
   constructor( private service: NodeService ) { }
 
   nombre = localStorage.getItem('nombreEmpleado');
-  cargo = localStorage.getItem('cargoEmpleado');
-
   ngOnInit() {
   }
 
-  async buscar(name) {
-    const h = new Date();
-    const ho = moment(h);
-    const hoy = ho.format('YYYY-MM-DD');
+  // async buscar(name) {
+  //   const h = new Date();
+  //   const ho = moment(h);
+  //   const hoy = ho.format('YYYY-MM-DD');
+  //
+  //   console.log(name.value, hoy);
+  //
+  //   await this.service.buscarPedidoNombre(hoy, name.value).subscribe(resp => {
+  //     this.service.pedidosPorBusqueda(resp);
+  //   });
+  // }
 
-    console.log(name.value, hoy);
-
-    await this.service.buscarPedidoNombre(hoy, name.value).subscribe(resp => {
-      this.service.pedidosPorBusqueda(resp);
+  logout() {
+    this.service.logout().subscribe(resp => {
+      localStorage.clear();
+      location.reload();
     });
   }
 

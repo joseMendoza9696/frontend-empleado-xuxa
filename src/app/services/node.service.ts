@@ -86,7 +86,7 @@ export class NodeService {
   ingresoTotal(fecha: any) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/pedidosFechaPrecio?fecha=${fecha}`, { headers: this.header });
+    return this.http.get(`${this.URL}/pedidosFechaPrecio?fecha=${fecha}&sucursal=${this.sucursal}`, { headers: this.header });
   }
 
   todosPedidos() {
@@ -151,6 +151,12 @@ export class NodeService {
 
   consultarClima() {
     return this.http.get(`${this.WeatherURL}q=${this.city}&appid=${this.apiKey}&lang=es&units=${this.units}`);
+  }
+
+  logout() {
+    this.header = this.header.set('Authorization', this.token);
+
+    return this.http.post( `${this.URL}/emp/logout`, {  }, { headers: this.header });
   }
 
 }
