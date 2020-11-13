@@ -35,6 +35,7 @@ export class NodeService {
   private id = localStorage.getItem('idEmpleado');
   private correo = localStorage.getItem('correoEmpleado');
   private nombre = localStorage.getItem('nombreEmpleado');
+  private sucursal = localStorage.getItem('sucursalID');
 
   login( empleado: EmpleadoModel ) {
     const loginData = {
@@ -45,13 +46,13 @@ export class NodeService {
 
     return this.http.post( `${this.URL}/emp/login`, loginData ).pipe(
       map( resp => {
-        this.guardarToken( resp['token'], resp['empleado']['_id'], resp['empleado']['correo'], resp['empleado']['nombre'] );
+        this.guardarToken( resp['token'], resp['empleado']['_id'], resp['empleado']['correo'], resp['empleado']['nombre'], resp['empleado']['sucursal_id'] );
         return resp;
       })
     );
   }
 
-  private guardarToken( token: string, id: string, correo: string, nombre: string ) {
+  private guardarToken( token: string, id: string, correo: string, nombre: string, sucursal: string ) {
     this.userToken = token;
     this.userId = id;
     this.userCorreo = correo;
@@ -62,6 +63,7 @@ export class NodeService {
     localStorage.setItem( 'idEmpleado', id );
     localStorage.setItem( 'correoEmpleado', correo );
     localStorage.setItem( 'nombreEmpleado', nombre );
+    localStorage.setItem('sucursalID', sucursal);
   }
 
   estaAutenticado() {
@@ -78,7 +80,7 @@ export class NodeService {
   fechaPedidos(fecha: any, limit: number, skip: number) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/pedidosFecha?fecha=${fecha}&limit=${limit}&skip=${skip}`, { headers: this.header } );
+    return this.http.get(`${this.URL}/pedidosFecha?fecha=${fecha}&limit=${limit}&skip=${skip}&sucursal=${this.sucursal}`, { headers: this.header } );
   }
 
   ingresoTotal(fecha: any) {
@@ -96,7 +98,12 @@ export class NodeService {
   crearPedido( pedido: PedidoModel ) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.post(`${this.URL}/crearPedido`, pedido, { headers: this.header } );
+    const body = {
+      ...pedido,
+      sucursal_id: this.sucursal
+    }
+
+    return this.http.post(`${this.URL}/crearPedido`, body, { headers: this.header } );
   }
 
   actualizarPedido(idP: string) {
