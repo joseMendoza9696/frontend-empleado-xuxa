@@ -40,10 +40,11 @@ export class FechaPedidoComponent implements OnInit {
 
 
     this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
-      this.pedidos = resp;
-      console.log(resp[0].nit_factura);
+      // this.pedidos = resp;
+      // this.pedidos = await this.listarProductos(this.pedidos);
 
-      this.pedidos = await this.listarProductos(this.pedidos);
+      this.ordenarPedidosProductos(resp);
+
       await this.listarCategorias();
       // console.log(this.pedidos);
     });
@@ -54,6 +55,10 @@ export class FechaPedidoComponent implements OnInit {
     });
   }
 
+  async ordenarPedidosProductos(resp) {
+    this.pedidos = resp;
+    this.pedidos = await this.listarProductos(this.pedidos);
+  }
 
   convertirFecha(fecha) {
     return fecha.format('dddd, D [de] MMMM [del] YYYY');
@@ -112,8 +117,11 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
-      this.pedidos = resp;
-      this.pedidos = this.listarProductos(this.pedidos);
+      // this.pedidos = resp;
+      // this.pedidos = this.listarProductos(this.pedidos);
+
+      this.ordenarPedidosProductos(resp);
+
       console.log(this.pedidos);
     });
   }
@@ -132,8 +140,10 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
-      this.pedidos = resp;
-      this.pedidos = this.listarProductos(this.pedidos);
+      // this.pedidos = resp;
+      // this.pedidos = this.listarProductos(this.pedidos);
+      this.ordenarPedidosProductos(resp);
+
       console.log(this.pedidos);
     });
   }
@@ -146,8 +156,10 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
-      this.pedidos = resp;
-      this.pedidos = this.listarProductos(this.pedidos);
+      // this.pedidos = resp;
+      // this.pedidos = this.listarProductos(this.pedidos);
+      this.ordenarPedidosProductos(resp);
+
       console.log(this.pedidos);
     });
   }
@@ -160,16 +172,19 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
-      this.pedidos = resp;
-      this.pedidos = this.listarProductos(this.pedidos);
+      // this.pedidos = resp;
+      // this.pedidos = this.listarProductos(this.pedidos);
+      this.ordenarPedidosProductos(resp);
+
       console.log(this.pedidos);
     });
   }
 
   recibirMensaje(event) {
     console.log('buscador...', event);
-    this.pedidos = event;
-    this.pedidos = this.listarProductos(this.pedidos);
+    // this.pedidos = event;
+    // this.pedidos = this.listarProductos(this.pedidos);
+    this.ordenarPedidosProductos(event);
   }
 
 }
