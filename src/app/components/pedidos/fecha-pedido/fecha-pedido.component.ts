@@ -166,10 +166,10 @@ export class FechaPedidoComponent implements OnInit {
     });
   }
 
-}
+  recibirMensaje(event) {
+    console.log('buscador...', event);
+    this.pedidos = event;
+    this.pedidos = this.listarProductos(this.pedidos);
+  }
 
-export function busqueda( ped ) {
-  // console.log( pedidos );
-
-  console.log(this.pedidos);
 }

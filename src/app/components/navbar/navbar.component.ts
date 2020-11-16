@@ -12,7 +12,7 @@ import 'moment/locale/es';
 export class NavbarComponent implements OnInit {
 
   @Output() busqueda = new EventEmitter();
-
+  // busqueda: EventEmitter<string> = new EventEmitter();
 
   constructor( private service: NodeService ) { }
 
@@ -20,16 +20,21 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  // async buscar(name) {
-  //   const h = new Date();
-  //   const ho = moment(h);
-  //   const hoy = ho.format('YYYY-MM-DD');
-  //
-  //   console.log(name.value, hoy);
-  //
-  //   await this.service.buscarPedidoNombre(hoy, name.value).subscribe(resp => {
-  //     this.service.pedidosPorBusqueda(resp);
-  //   });
+  async buscar(name) {
+    const h = new Date();
+    const ho = moment(h);
+    const hoy = ho.format('YYYY-MM-DD');
+
+    console.log(name.value, hoy);
+
+    await this.service.buscador(hoy, name.value).subscribe(resp => {
+      this.busqueda.emit(resp);
+    });
+  }
+
+  // buscar(name) {
+  //   console.log('hijo: ', name.value);
+  //   this.busqueda.emit(name.value);
   // }
 
   logout() {

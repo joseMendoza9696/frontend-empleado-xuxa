@@ -22,8 +22,9 @@ export class NodeService {
   pedidosBusqueda: any;
   constructor( private http: HttpClient  ) { }
 
-  // readonly URL: string = 'http://localhost:3000';
-  readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
+  readonly URL: string = 'http://localhost:3000';
+  // readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
+
   private header = new HttpHeaders();
 
   readonly WeatherURL: string = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -115,15 +116,12 @@ export class NodeService {
     return this.http.patch(`${this.URL}/emp/pedido/${idP}/${this.id}`, patch, { headers: this.header });
   }
 
-  buscarPedidoNombre(fecha: string, nombre: string) {
+  buscador(fecha: string, nombre: string) {
     this.header = this.header.set('Authorization', this.token);
 
-    return this.http.get(`${this.URL}/buscarCliente?nombre=${nombre}&fecha=${fecha}`, { headers: this.header });
+    return this.http.get(`${this.URL}/buscar?search=${nombre}&fecha=${fecha}&sucursal=${this.sucursal}`, { headers: this.header });
   }
 
-  public pedidosPorBusqueda( pedidos: any ) {
-    this.pedidosBusqueda = pedidos;
-  }
 
   listarProductos() {
     this.header = this.header.set('Authorization', this.token);
