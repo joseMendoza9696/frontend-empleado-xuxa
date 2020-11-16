@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
 import {NodeService} from '../../services/node.service';
 
 import * as moment from 'moment';
@@ -12,30 +12,23 @@ import 'moment/locale/es';
 export class NavbarComponent implements OnInit {
 
   @Output() busqueda = new EventEmitter();
-  // busqueda: EventEmitter<string> = new EventEmitter();
+  @Input() fecha: string;
 
   constructor( private service: NodeService ) { }
 
   nombre: string = localStorage.getItem('nombreEmpleado');
   ngOnInit() {
+    console.log('OnInit: ', this.fecha);
   }
 
   async buscar(name) {
-    const h = new Date();
-    const ho = moment(h);
-    const hoy = ho.format('YYYY-MM-DD');
+    console.log('Buscar: ', this.fecha);
 
-    console.log(name.value, hoy);
-
-    await this.service.buscador(hoy, name.value).subscribe(resp => {
+    await this.service.buscador(this.fecha, name.value).subscribe(resp => {
       this.busqueda.emit(resp);
     });
   }
 
-  // buscar(name) {
-  //   console.log('hijo: ', name.value);
-  //   this.busqueda.emit(name.value);
-  // }
 
   logout() {
     this.service.logout().subscribe(resp => {
