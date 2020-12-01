@@ -13,6 +13,8 @@ import { CrearPedidoComponent } from './components/pedidos/crear-pedido/crear-pe
 import { FechaPedidoComponent } from './components/pedidos/fecha-pedido/fecha-pedido.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,11 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
   ],
   imports: [
     BrowserModule,
+    MatButtonModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot( ROUTES, { useHash: true } )
+    RouterModule.forRoot( ROUTES, { useHash: true } ),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
