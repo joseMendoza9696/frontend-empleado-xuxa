@@ -23,7 +23,6 @@ export class FechaPedidoComponent implements OnInit {
   refrescos: string = '5f51984faf3d7403b74f919a';
   helados: string = '5f51987caf3d7403b74f919c';
 
-  // pedidos: any = GlobalConstant.pedidosBusqueda ;
   pedidos: any = '';
 
   fechaActualBusqueda: any;
