@@ -50,12 +50,9 @@ export class FechaPedidoComponent implements OnInit {
 
 
     await this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
-      // this.pedidos = resp;
-      // this.pedidos = await this.listarProductos(this.pedidos);
 
       this.pedidos = resp;
 
-      // await this.ordenarPedidosProductos(resp);
 
       await this.listarCategorias();
       console.log(this.pedidos);
@@ -68,43 +65,9 @@ export class FechaPedidoComponent implements OnInit {
 
   }
 
-  // async ordenarPedidosProductos(resp) {
-  //   this.pedidos = resp;
-  //   this.pedidos = await this.listarProductos(this.pedidos);
-  // }
-
   convertirFecha(fecha) {
     return fecha.format('dddd, D [de] MMMM [del] YYYY');
   }
-
-  // async listarProductos(pedidos: any) {
-  //   let categ = '';
-  //   // this.ingresos = 0;
-  //
-  //   await pedidos.forEach( (pedi) => {
-  //     const pedido = pedi;
-  //     // this.ingresos = this.ingresos + pedido.cuenta_pedido;
-  //     pedido.orden.forEach( (order) => {
-  //       const orden = order;
-  //       this.node.listarProducto( orden.producto_id ).subscribe(  async (resp) => {
-  //         // console.log(resp);
-  //         await this.categorias.forEach( (categoria) => {
-  //           if ( resp['categoria_id'] === categoria._id ) {
-  //             console.log('categorias iguales');
-  //             categ = categoria.nombre;
-  //           }
-  //         });
-  //
-  //         pedido.orden = {
-  //           ...orden,
-  //           producto: resp,
-  //           categoria: categ
-  //         };
-  //       });
-  //     });
-  //   });
-  //   return pedidos;
-  // }
 
   async listarCategorias() {
     await this.node.listarCategorias().subscribe(resp => {
@@ -126,12 +89,6 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     await this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
-      // this.pedidos = resp;
-      // this.pedidos = this.listarProductos(this.pedidos);
-
-      // await this.ordenarPedidosProductos(resp);
-
-      // console.log(this.pedidos);
       this.pedidos = resp;
 
       console.log(resp);
@@ -152,9 +109,6 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     await this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
-      // this.pedidos = resp;
-      // this.pedidos = this.listarProductos(this.pedidos);
-      // await this.ordenarPedidosProductos(resp);
       this.pedidos = resp;
 
       console.log(this.pedidos);
@@ -169,9 +123,6 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     await this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
-      // this.pedidos = resp;
-      // this.pedidos = this.listarProductos(this.pedidos);
-      // await this.ordenarPedidosProductos(resp);
       this.pedidos = resp;
 
       console.log(this.pedidos);
@@ -186,9 +137,6 @@ export class FechaPedidoComponent implements OnInit {
     });
 
     await this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
-      // this.pedidos = resp;
-      // this.pedidos = this.listarProductos(this.pedidos);
-      // await this.ordenarPedidosProductos(resp);
       this.pedidos = resp;
 
       console.log(this.pedidos);
@@ -197,9 +145,6 @@ export class FechaPedidoComponent implements OnInit {
 
   async recibirMensaje(event) {
     console.log('buscador...', event);
-    // this.pedidos = event;
-    // this.pedidos = this.listarProductos(this.pedidos);
-    // await this.ordenarPedidosProductos(event);
     this.pedidos = event;
   }
 
