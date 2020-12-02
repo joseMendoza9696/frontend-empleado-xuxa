@@ -14,11 +14,14 @@ import 'moment/locale/es';
 export class FechaPedidoComponent implements OnInit {
 
   myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    // return day !== 0 && day !== 6;
+    // const day = (d || new Date()).getDay();
     return true;
   }
+
+  pizzas: string = '5f51986daf3d7403b74f919b';
+  alitas: string = '5f519a31af3d7403b74f91a5';
+  refrescos: string = '5f51984faf3d7403b74f919a';
+  helados: string = '5f51987caf3d7403b74f919c';
 
   // pedidos: any = GlobalConstant.pedidosBusqueda ;
   pedidos: any = '';
@@ -36,7 +39,7 @@ export class FechaPedidoComponent implements OnInit {
   constructor(private node: NodeService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     const h = new Date();
     const ho = moment(h);
@@ -46,79 +49,71 @@ export class FechaPedidoComponent implements OnInit {
     this.fechaActualBusquedaFormat = ho;
 
 
-    this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
+    await this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe(async (resp) => {
       // this.pedidos = resp;
       // this.pedidos = await this.listarProductos(this.pedidos);
 
-      this.ordenarPedidosProductos(resp);
+      this.pedidos = resp;
+
+      // await this.ordenarPedidosProductos(resp);
 
       await this.listarCategorias();
-      // console.log(this.pedidos);
+      console.log(this.pedidos);
     });
 
-    this.node.ingresoTotal(hoy).subscribe( (resp) => {
+    await this.node.ingresoTotal(hoy).subscribe( (resp) => {
       console.log(resp);
       this.ingresos = resp['ingreso'];
     });
+
   }
 
-  async ordenarPedidosProductos(resp) {
-    this.pedidos = resp;
-    this.pedidos = await this.listarProductos(this.pedidos);
-  }
+  // async ordenarPedidosProductos(resp) {
+  //   this.pedidos = resp;
+  //   this.pedidos = await this.listarProductos(this.pedidos);
+  // }
 
   convertirFecha(fecha) {
     return fecha.format('dddd, D [de] MMMM [del] YYYY');
   }
 
-  listarProductos(pedidos: any) {
-    let categ = '';
-    // this.ingresos = 0;
+  // async listarProductos(pedidos: any) {
+  //   let categ = '';
+  //   // this.ingresos = 0;
+  //
+  //   await pedidos.forEach( (pedi) => {
+  //     const pedido = pedi;
+  //     // this.ingresos = this.ingresos + pedido.cuenta_pedido;
+  //     pedido.orden.forEach( (order) => {
+  //       const orden = order;
+  //       this.node.listarProducto( orden.producto_id ).subscribe(  async (resp) => {
+  //         // console.log(resp);
+  //         await this.categorias.forEach( (categoria) => {
+  //           if ( resp['categoria_id'] === categoria._id ) {
+  //             console.log('categorias iguales');
+  //             categ = categoria.nombre;
+  //           }
+  //         });
+  //
+  //         pedido.orden = {
+  //           ...orden,
+  //           producto: resp,
+  //           categoria: categ
+  //         };
+  //       });
+  //     });
+  //   });
+  //   return pedidos;
+  // }
 
-    for ( let i = 0; i < pedidos.length; i++) {
-      const pedido = pedidos[i];
-      // this.ingresos = this.ingresos + pedido.cuenta_pedido;
-
-      for (let j = 0; j < pedido.orden.length; j++) {
-        const orden = pedido.orden[j];
-
-        this.node.listarProducto( orden.producto_id ).subscribe( resp => {
-          // console.log(resp);
-          for (let k = 0; k < this.categorias.length; k++) {
-            if ( resp['categoria_id'] === this.categorias[k]._id ) {
-              console.log('categorias iguales');
-              categ = this.categorias[k].nombre;
-            }
-          }
-          pedidos[i].orden[j] = {
-            ...orden,
-            producto: resp,
-            categoria: categ
-          };
-        });
-      }
-    }
-
-    return pedidos;
-  }
-
-  listarCategorias() {
-    this.node.listarCategorias().subscribe(resp => {
+  async listarCategorias() {
+    await this.node.listarCategorias().subscribe(resp => {
       this.categorias = resp;
-
-      console.log(this.categorias);
     });
   }
 
-  fechaPedido( fecha: any ) {
-    // console.log(fecha.value);
-    // this.ingresos = 0;
-    console.log(fecha.value);
-    console.log(typeof(fecha.value));
-
+  async fechaPedido( fecha: any ) {
     let d12 = new Date(fecha.value);
-
-    console.log(d12);
 
     const fechaB = moment(d12);
     const fechaBusqueda = fechaB.format('YYYY-MM-DD');
@@ -126,21 +121,24 @@ export class FechaPedidoComponent implements OnInit {
     this.fechaActualBusqueda = fechaBusqueda;
     this.fechaActualBusquedaFormat = fechaB;
 
-    this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
+    await this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
       this.ingresos = resp['ingreso'];
     });
 
-    this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
+    await this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
       // this.pedidos = resp;
       // this.pedidos = this.listarProductos(this.pedidos);
 
-      this.ordenarPedidosProductos(resp);
+      // await this.ordenarPedidosProductos(resp);
 
-      console.log(this.pedidos);
+      // console.log(this.pedidos);
+      this.pedidos = resp;
+
+      console.log(resp);
     });
   }
 
-  pedidosHoy() {
+  async pedidosHoy() {
     console.log('hoy');
     const fecha = new Date();
     const fechaB = moment(fecha);
@@ -149,56 +147,61 @@ export class FechaPedidoComponent implements OnInit {
     this.fechaActualBusqueda = fechaBusqueda;
     this.fechaActualBusquedaFormat = fechaB;
 
-    this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
+    await this.node.ingresoTotal(fechaBusqueda).subscribe( resp => {
       this.ingresos = resp['ingreso'];
     });
 
-    this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
+    await this.node.fechaPedidos(fechaBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
       // this.pedidos = resp;
       // this.pedidos = this.listarProductos(this.pedidos);
-      this.ordenarPedidosProductos(resp);
+      // await this.ordenarPedidosProductos(resp);
+      this.pedidos = resp;
 
       console.log(this.pedidos);
     });
   }
 
-  nextPage() {
+  async nextPage() {
     this.pageSkip = this.pageSkip + this.pageLimit;
 
-    this.node.ingresoTotal(this.fechaActualBusqueda).subscribe( resp => {
+    await this.node.ingresoTotal(this.fechaActualBusqueda).subscribe( resp => {
       this.ingresos = resp['ingreso'];
     });
 
-    this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
+    await this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
       // this.pedidos = resp;
       // this.pedidos = this.listarProductos(this.pedidos);
-      this.ordenarPedidosProductos(resp);
+      // await this.ordenarPedidosProductos(resp);
+      this.pedidos = resp;
 
       console.log(this.pedidos);
     });
   }
 
-  previousPage() {
+  async previousPage() {
     this.pageSkip = this.pageSkip - this.pageLimit;
 
-    this.node.ingresoTotal(this.fechaActualBusqueda).subscribe( resp => {
+    await this.node.ingresoTotal(this.fechaActualBusqueda).subscribe( resp => {
       this.ingresos = resp['ingreso'];
     });
 
-    this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( resp => {
+    await this.node.fechaPedidos(this.fechaActualBusqueda, this.pageLimit, this.pageSkip).subscribe( async (resp) => {
       // this.pedidos = resp;
       // this.pedidos = this.listarProductos(this.pedidos);
-      this.ordenarPedidosProductos(resp);
+      // await this.ordenarPedidosProductos(resp);
+      this.pedidos = resp;
 
       console.log(this.pedidos);
     });
   }
 
-  recibirMensaje(event) {
+  async recibirMensaje(event) {
     console.log('buscador...', event);
     // this.pedidos = event;
     // this.pedidos = this.listarProductos(this.pedidos);
-    this.ordenarPedidosProductos(event);
+    // await this.ordenarPedidosProductos(event);
+    this.pedidos = event;
   }
+
 
 }

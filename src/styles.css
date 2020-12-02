@@ -4,6 +4,7 @@ html, body { height: 100%; }
 body {
   background-color: rgb(50,50,50);
   margin: 0;
+  font-size: 15px;
   font-family:
     Roboto, "Helvetica Neue",
     sans-serif;
@@ -61,5 +62,5 @@ section {
 
 .example-card {
   max-width: 100%;
-  margin-left: 5%;
+  /*margin-left: 2%;*/
 }
