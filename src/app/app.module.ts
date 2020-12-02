@@ -14,7 +14,17 @@ import { FechaPedidoComponent } from './components/pedidos/fecha-pedido/fecha-pe
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -28,7 +38,18 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     BrowserModule,
+
     MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatGridListModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatCardModule,
+
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot( ROUTES, { useHash: true } ),

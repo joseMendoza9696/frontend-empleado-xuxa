@@ -1,31 +1,58 @@
-<nav class="navbar navbar-expand bg-danger" style="margin-bottom: 2%;" >
+<!--<nav class="navbar navbar-expand bg-danger" style="margin-bottom: 2%;" >-->
 
-  <div class="col-md-1">
-    <strong>{{ nombre }}</strong>
+<!--  <div class="col-md-1">-->
+<!--    <strong>{{ nombre }}</strong>-->
+<!--  </div>-->
+<!--    <div class="col-md-2" >-->
+<!--        <a color="secondary-blue" class="nav-link text-warning" href="#">Pedidos</a>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-6" >-->
+<!--        <form >-->
+<!--            <div class="row" >-->
+<!--                <div class="col-md-11" >-->
+<!--                    <input class="form-control" type="text" #name >-->
+<!--                </div>-->
+<!--                <div class="col-md-1" >-->
+<!--                    <button mat-raised-button color="secondary" type="submit" class="btn btn-primary" (click)="buscar(name)" >Buscar</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-2" >-->
+<!--        &lt;!&ndash; <a class="nav-link text-warning" [routerLink]="[ '/home/empleados' ]"  >Empleados</a> &ndash;&gt;-->
+<!--        <a class="nav-link text-warning" [routerLink]="[ '/home/crear-pedido' ]" >Nuevo pedido</a>-->
+<!--    </div>-->
+<!--    <div class="col-md-2">-->
+<!--          <a class="nav-link text-warning" (click)="logout()" >Cerrar sesion</a>-->
+<!--    </div>-->
+
+<!--</nav>-->
+
+<mat-toolbar color="primary" >
+  <span > {{nombre}} </span>
+
+  <span class="example-spacer"></span>
+  <form >
+    <mat-form-field appearance="fill">
+      <mat-label>Buscar</mat-label>
+      <input #name matInput>
+    </mat-form-field>
+
+    <button mat-mini-fab color="warn" (click)="buscar(name)" >
+      <mat-icon> search </mat-icon>
+    </button>
+  </form>
+  <span class="example-spacer"></span>
+
+  <div class="example-button-row">
+    <button [routerLink]="[ '/home/fecha-pedidos' ]"  mat-button color="link">Pedidos</button>
+    <button [routerLink]="[ '/home/crear-pedido' ]" mat-button color="link">Nuevo pedido</button>
+    <button  mat-button color="warn" (click)="logout()" >Cerrar sesion</button>
   </div>
-    <div class="col-md-2" >
-        <a class="nav-link text-warning" href="#">Pedidos</a>
-    </div>
 
-    <div class="col-md-6" >
-        <form >
-            <div class="row" >
-                <div class="col-md-11" >
-                    <input class="form-control" type="text" #name >
-                </div>
-                <div class="col-md-1" >
-                    <button mat-raised-button color="primary" type="submit" class="btn btn-primary" (click)="buscar(name)" >Buscar</button>
-                </div>
-            </div>
-        </form>
-    </div>
 
-    <div class="col-md-2" >
-        <!-- <a class="nav-link text-warning" [routerLink]="[ '/home/empleados' ]"  >Empleados</a> -->
-        <a class="nav-link text-warning" [routerLink]="[ '/home/crear-pedido' ]" >Nuevo pedido</a>
-    </div>
-    <div class="col-md-2">
-          <a class="nav-link text-warning" (click)="logout()" >Cerrar sesion</a>
-    </div>
 
-</nav>
+
+</mat-toolbar>

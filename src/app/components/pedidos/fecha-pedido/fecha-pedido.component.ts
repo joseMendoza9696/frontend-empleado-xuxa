@@ -13,6 +13,13 @@ import 'moment/locale/es';
 
 export class FechaPedidoComponent implements OnInit {
 
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    // return day !== 0 && day !== 6;
+    return true;
+  }
+
   // pedidos: any = GlobalConstant.pedidosBusqueda ;
   pedidos: any = '';
 
@@ -106,7 +113,14 @@ export class FechaPedidoComponent implements OnInit {
   fechaPedido( fecha: any ) {
     // console.log(fecha.value);
     // this.ingresos = 0;
-    const fechaB = moment(fecha.value);
+    console.log(fecha.value);
+    console.log(typeof(fecha.value));
+
+    let d12 = new Date(fecha.value);
+
+    console.log(d12);
+
+    const fechaB = moment(d12);
     const fechaBusqueda = fechaB.format('YYYY-MM-DD');
 
     this.fechaActualBusqueda = fechaBusqueda;
