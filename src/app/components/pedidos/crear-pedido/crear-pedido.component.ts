@@ -7,12 +7,25 @@ import 'moment/locale/es';
 import { PedidoModel } from '../../../models/pedido.model';
 import { NodeService } from '../../../services/node.service';
 
+interface Para {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-crear-pedido',
   templateUrl: './crear-pedido.component.html',
   styles: []
 })
 export class CrearPedidoComponent implements OnInit {
+
+  selectedValue: string;
+
+  para: Para[] = [
+    {value: 'Llevar', viewValue: 'Steak'},
+    {value: 'Mesa', viewValue: 'Pizza'},
+    {value: 'Delivery', viewValue: 'Tacos'}
+  ];
 
   prod = '';
   categorias: any = '';
@@ -65,6 +78,7 @@ export class CrearPedidoComponent implements OnInit {
 
     this.node.listarProductosCategoria(categoria).subscribe( resp => {
       this.productos = resp;
+      console.log( resp);
     });
   }
 

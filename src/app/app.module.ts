@@ -25,6 +25,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatListModule} from '@angular/material/list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import {MatCardModule} from '@angular/material/card';
     MatChipsModule,
     MatDividerModule,
     MatCardModule,
+    MatAutocompleteModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatSelectModule,
 
     HttpClientModule,
     FormsModule,

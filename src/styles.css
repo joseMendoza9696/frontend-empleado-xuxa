@@ -61,6 +61,11 @@ section {
 }
 
 .example-card {
-  max-width: 100%;
+  width: fit-content;
   /*margin-left: 2%;*/
 }
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
