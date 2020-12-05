@@ -29,6 +29,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatListModule} from '@angular/material/list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatListModule,
     MatFormFieldModule,
     MatSelectModule,
+    ScrollingModule,
+    MatMenuModule,
 
     HttpClientModule,
     FormsModule,
