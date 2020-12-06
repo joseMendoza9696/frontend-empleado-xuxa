@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 
+
+<!--*********** BOTONES SUPERIORES ***********-->
 <mat-grid-list cols="1" rowHeight="50px" >
   <mat-grid-tile>
     <div *ngFor="let categ of categorias; let i = index;" style="margin-left: 3%;" >
@@ -37,7 +39,7 @@
     [rowspan]="1"
     style="color: #91ff35;"
   >
-    <h1>Pedidos</h1>
+    <h1>Pedido</h1>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="1" [rowspan]="1" ></mat-grid-tile>
 </mat-grid-list>
@@ -45,115 +47,137 @@
 <mat-divider></mat-divider>
 
 
+<!--************* FORMULARIO DEL PEDIDO ****************-->
 
-<mat-grid-list cols="4" >
-  <mat-grid-tile [colspan]="1" [rowspan]="1" >1</mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1" >2</mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1" >3</mat-grid-tile>
-</mat-grid-list>
+<form (ngSubmit)="login(f)" #f="ngForm" >
 
-<mat-card  class="mat-elevation-z10">
-  <mat-card-header>
-    <mat-card-title>
-      Pedido
-    </mat-card-title>
-  </mat-card-header>
 
-  <!--      <mat-divider></mat-divider>-->
-
-  <mat-card-content>
+<mat-grid-list cols="4" rowHeight="100px" >
+  <mat-grid-tile [colspan]="1" [rowspan]="1" ></mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1" >
     <div class="example-container">
-      <form (ngSubmit)="login(f)" #f="ngForm">
         <p>
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" >
             <mat-label>Nombre del cliente</mat-label>
-            <input matInput placeholder="nombre del cliente">
-            <mat-icon matSuffix>supervised_user_circle</mat-icon>
+            <input
+              style="color: white;"
+              [(ngModel)]="pedido.nombre_cliente"
+              required
+              minLength="2"
+              name="nombre_cliente"
+              matInput
+              placeholder="nombre del cliente">
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Para ...</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="para">
-              <mat-option *ngFor="let p of para" [value]="p.value">
-                {{p.value}}
-              </mat-option>
+            <mat-select (change)="paraPedido($event)" >
+              <mat-option value="Llevar" >Llevar</mat-option>
+              <mat-option value="Mesa" >Mesa</mat-option>
+              <mat-option value="Delivery" >Delivery</mat-option>
             </mat-select>
           </mat-form-field>
         </p>
-        <mat-divider></mat-divider>
-        <h2 style="color: #f48fb1;" >Ordenes</h2>
-        <p>
-          <mat-card *ngFor="let orden of ordenes; index as i" class=" example-item-detail mat-elevation-z10" style="margin-bottom: 3%;"  >
-            <mat-card-header>
-              <mat-card-title [ngStyle]="{ 'color: #f50057': ordenColor[i]==='pizzas', 'color: #ffea00;': ordenColor[i]==='alitas', 'color: #33eaff;': ordenColor[i]==='refrescos', 'color: #33bfff;': ordenColor[i]==='helados' }" >
-                {{ orden.nombre }}
-              </mat-card-title>
-              <button (click)="quitarOrden(i)" mat-stroked-button style="color: #f50057;">Quitar</button>
-              <mat-card-subtitle style="color: #ffea00;" >
-                {{orden.precio}} Bs
-              </mat-card-subtitle>
-            </mat-card-header>
-
-            <mat-card-content>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Descripcion</mat-label>
-                <textarea matInput></textarea>
-              </mat-form-field>
-
-              <mat-form-field appearance="fill">
-                <mat-label>Cantidad</mat-label>
-                <input matInput type="number" class="example-right-align">
-              </mat-form-field>
-            </mat-card-content>
-          </mat-card>
-        </p>
-      </form>
     </div>
-  </mat-card-content>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1" ></mat-grid-tile>
+</mat-grid-list>
 
-  <mat-divider></mat-divider>
+<!--********* LISTADO DE ORDENES ************-->
+<mat-grid-list *ngFor="let orden of ordenes; index as i" cols="4" rowHeight="2:1" >
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >1</mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1" >
+    <p>
+      <mat-card  class=" example-item-detail mat-elevation-z10" style="margin-bottom: 3%;"  >
+        <mat-card-header>
+          <mat-card-title style="color: #33eaff;"  >{{ orden.nombre }}</mat-card-title>
+          <button (click)="quitarOrden(i)" mat-stroked-button style="color: #f50057;">Quitar</button>
+          <mat-card-subtitle style="color: #ffea00;" >
+            {{orden.precio}} Bs
+          </mat-card-subtitle>
+        </mat-card-header>
 
-  <mat-card-content>
-    <mat-card-header>
-      <mat-card-title>
-        <div class="example-container">
-          <h2 style="color: #33eaff;" >Extras</h2>
+        <mat-card-content>
+
           <mat-form-field appearance="fill">
-            <mat-label>Precio</mat-label>
-            <input matInput type="number" class="example-right-align" autocomplete="off" >
-            <span matPrefix>Bs&nbsp;</span>
+            <mat-label>Descripcion</mat-label>
+            <textarea
+              #des
+              (input)="descripcion(i, des)"
+              matInput></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Cantidad</mat-label>
+            <input matInput (input)="cantidad(i, cant)" #cant type="number" value="1" class="example-right-align">
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </p>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1" >1</mat-grid-tile>
+</mat-grid-list>
+
+<!--*********** ENVIAR PEDIDO Y EXTRAS ***********-->
+<mat-grid-list cols="4" rowHeight="500px" >
+  <mat-grid-tile [colspan]="1" [rowspan]="1" ></mat-grid-tile>
+  <mat-grid-tile [colspan]="2" [rowspan]="1" >
+    <mat-card class="mat-elevation-z10" >
+      <mat-card-content>
+        <mat-card-header>
+          <mat-card-title>
+            <div class="example-container">
+              <h2 style="color: #33eaff;" >Extras</h2>
+              <mat-form-field appearance="fill">
+                <mat-label>Precio</mat-label>
+                <input
+                  #extra
+                  (input)="agregarExtra(extra)" [value]="extras"
+                  matInput
+                  type="number"
+                  class="example-right-align" autocomplete="off" >
+                <span matPrefix>Bs&nbsp;</span>
+              </mat-form-field>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <h2 style="color: #33eb91;" >Datos de la factura</h2>
+        <div class="example-container">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de la factura</mat-label>
+            <input
+              [(ngModel)]="pedido.nombre_factura"
+              name="nit"
+              matInput placeholder="factura">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>NIT de la factura</mat-label>
+            <input
+              [(ngModel)]="pedido.nit_factura"
+              name="nit"
+              matInput placeholder="NIT">
           </mat-form-field>
         </div>
-      </mat-card-title>
-    </mat-card-header>
-  </mat-card-content>
 
-  <mat-divider></mat-divider>
+        <div class="example-container">
+          <button mat-raised-button color="primary" type="submit" style="margin-right: 60%;" >Enviar</button>
+          <mat-label style=" color: #91ff35;" >{{ precioTotal }} Bs</mat-label>
+        </div>
 
-  <mat-card-content>
-    <h2 style="color: #33eb91;" >Datos de la factura</h2>
-    <div class="example-container">
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1" ></mat-grid-tile>
+</mat-grid-list>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre de la factura</mat-label>
-        <input matInput placeholder="factura">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>NIT de la factura</mat-label>
-        <input matInput placeholder="NIT">
-      </mat-form-field>
-    </div>
-
-    <div class="example-container">
-      <button mat-raised-button color="primary" style="margin-right: 60%;" >Enviar</button>
-      <mat-label style=" color: #91ff35;" >{{ precioTotal }} Bs</mat-label>
-    </div>
-
-  </mat-card-content>
-</mat-card>
-
+</form>
 
 
 
