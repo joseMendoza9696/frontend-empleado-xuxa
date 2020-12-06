@@ -71,10 +71,10 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Para ...</mat-label>
-            <mat-select (change)="paraPedido($event)" >
-              <mat-option value="Llevar" >Llevar</mat-option>
-              <mat-option value="Mesa" >Mesa</mat-option>
-              <mat-option value="Delivery" >Delivery</mat-option>
+            <mat-select (selectionChange)="paraPedido($event)" >
+              <mat-option  value="Llevar" >Llevar</mat-option>
+              <mat-option  value="Mesa" >Mesa</mat-option>
+              <mat-option  value="Delivery" >Delivery</mat-option>
             </mat-select>
           </mat-form-field>
         </p>

@@ -186,7 +186,12 @@ export class CrearPedidoComponent implements OnInit {
   }
 
   paraPedido(event) {
-    this.pedido.tipo = event.target.value;
+    console.log(event.value);
+    this.pedido.tipo = event.value;
+  }
+
+  paraPedido2(eve){
+    console.log(eve);
   }
 
   imprimir() {
