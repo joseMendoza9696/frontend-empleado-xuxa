@@ -167,7 +167,7 @@
         </div>
 
         <div class="example-container">
-          <button mat-raised-button color="primary" type="submit" style="margin-right: 60%;" >Enviar</button>
+          <button mat-raised-button color="primary" type="submit" style="margin-right: 60%;" [disabled]="bloqueado"  >Enviar</button>
           <mat-label style=" color: #91ff35;" >{{ precioTotal }} Bs</mat-label>
         </div>
 

@@ -54,6 +54,8 @@ export class CrearPedidoComponent implements OnInit {
 
   consultaClima: any = '';
 
+  bloqueado: boolean = false;
+
   constructor( private node: NodeService, private router: Router ) { }
 
   ngOnInit() {
@@ -105,6 +107,8 @@ export class CrearPedidoComponent implements OnInit {
   }
 
   login(form: NgForm){
+    this.bloqueado = true;
+
     if (form.invalid) { return ;}
     // if (this.pedido.orden === undefined) {
     //   return;
