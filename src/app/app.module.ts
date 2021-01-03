@@ -31,6 +31,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatMenuModule} from '@angular/material/menu';
+import { PedidosCocinaComponent } from './components/pedidos/pedidos-cocina/pedidos-cocina.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatMenuModule} from '@angular/material/menu';
     FechaPedidoComponent,
     NavbarComponent,
     EstadisticasComponent,
+    PedidosCocinaComponent,
   ],
   imports: [
     BrowserModule,

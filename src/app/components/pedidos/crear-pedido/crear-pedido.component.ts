@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+// import * as io from 'socket.io-client';
 import 'moment/locale/es';
 
 import { PedidoModel } from '../../../models/pedido.model';
@@ -56,7 +57,10 @@ export class CrearPedidoComponent implements OnInit {
 
   bloqueado: boolean = false;
 
-  constructor( private node: NodeService, private router: Router ) { }
+  // private socket: any;
+
+  constructor( private node: NodeService, private router: Router ) {
+  }
 
   ngOnInit() {
     this.node.listarCategorias().subscribe(resp => {
@@ -150,6 +154,11 @@ export class CrearPedidoComponent implements OnInit {
 
     this.node.crearPedido(this.pedido).subscribe( resp => {
       console.log(resp);
+      this.node.socket.emit('comanda', (error) => {
+        if (error) {
+          alert(error);
+        }
+      });
       this.imprimir();
       this.router.navigateByUrl('/#');
     });

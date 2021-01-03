@@ -7,7 +7,9 @@ import { PedidoModel } from '../models/pedido.model';
 
 import { map } from 'rxjs/operators';
 
-import * as moment from 'moment';
+import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
+
 import 'moment/locale/es';
 
 @Injectable({
@@ -20,10 +22,29 @@ export class NodeService {
   userCorreo: string;
   userNombre: string;
   pedidosBusqueda: any;
-  constructor( private http: HttpClient  ) { }
+  sucursalId: string;
 
-  // readonly URL: string = 'http://localhost:3000';
-  readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
+  readonly URL: string = 'http://localhost:3000';
+  // readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
+
+
+  socket: any;
+
+  constructor( private http: HttpClient  ) {
+    this.socket = io(this.URL);
+  }
+
+  listen(eventName: string){
+    return new Observable((subscriber) => {
+      this.socket.on(eventName, (data) => {
+        subscriber.next(data);
+      });
+    });
+  }
+
+  emit(eventName: string, data: any){
+    this.socket.emit(eventName, data);
+  }
 
   private header = new HttpHeaders();
 
@@ -58,6 +79,7 @@ export class NodeService {
     this.userId = id;
     this.userCorreo = correo;
     this.userNombre = nombre;
+    this.sucursalId = sucursal;
 
 
     localStorage.setItem( 'tokenEmpleado', token );
