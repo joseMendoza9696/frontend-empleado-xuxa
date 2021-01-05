@@ -31,6 +31,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 import { PedidosCocinaComponent } from './components/pedidos/pedidos-cocina/pedidos-cocina.component';
 
 @NgModule({
@@ -63,6 +66,8 @@ import { PedidosCocinaComponent } from './components/pedidos/pedidos-cocina/pedi
     MatSelectModule,
     ScrollingModule,
     MatMenuModule,
+    MatTableModule,
+    MatButtonToggleModule,
 
     HttpClientModule,
     FormsModule,

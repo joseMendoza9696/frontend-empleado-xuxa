@@ -79,3 +79,37 @@ section {
   height: 50px;
 }
 
+.titulo-tabla {
+  font-style:italic;
+  font-weight:bold;
+  font-size:14px;
+  font-color:#ffffff;
+  font-family:'Helvetica','Verdana','Monaco',sans-serif;
+}
+
+.example-container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.mat-table-sticky {
+  background: #59abfd;
+  opacity: 1;
+}
+
+.example-sticky-toggle-group {
+  margin: 8px;
+}
+
+.mat-column-filler {
+  padding: 0 8px;
+  font-size: 10px;
+  text-align: center;
+}
+
+.mat-header-cell, .mat-footer-cell, .mat-cell {
+  min-width: 80px;
+  box-sizing: border-box;
+}
+

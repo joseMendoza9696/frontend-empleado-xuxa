@@ -1,3 +1,39 @@
 <app-navbar></app-navbar>
 
-<h1>pedidos de la cocina</h1>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> id </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Cliente">
+    <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Cliente}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Producto">
+    <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Producto}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Descripcion">
+    <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Descripcion}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Para">
+    <mat-header-cell *matHeaderCellDef> Para </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Para}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Completado">
+    <mat-header-cell *matHeaderCellDef> Completado </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Completado}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
