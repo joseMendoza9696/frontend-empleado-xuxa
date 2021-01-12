@@ -5,7 +5,9 @@ import * as moment from 'moment';
 import { MatButtonModule } from '@angular/material/button';
 
 export interface PedidosCocina {
+  ID: any;
   id: any;
+  Categorias: any;
   Cliente: any;
   Producto: any;
   Descripcion: any;
@@ -15,20 +17,6 @@ export interface PedidosCocina {
 
 let PEDIDOS_DATA: PedidosCocina[] = [];
 
-export interface PeriodicElement {
-  Cliente: string;
-  Pedido: string;
-  Para: string;
-  Completado: any;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { Cliente: 'jose', Pedido: 'esto esto esto esto', Para: 'llevar', Completado: 'false' },
-  { Cliente: 'samuel',
-    Pedido: 'esto esto esto estohola hola hola hola hola hola holaalkjsdfl;ajsd;lfjasd;f',
-    Para: 'llevar',
-    Completado: 'true' }
-];
 
 @Component({
   selector: 'app-pedidos-cocina',
@@ -105,19 +93,23 @@ export class PedidosCocinaComponent implements OnInit {
       let producto = '';
       let descripcion = '';
       pedido = {
+        ID: p._id,
         id: index,
         Cliente: p.nombre_cliente,
         Para: p.tipo,
         Completado: p.completado
       };
+      const categorias = [];
       p.orden.forEach((ord) => {
         producto = producto + '* ' + ord.cantidad + ': ' + ord.producto_id.nombre;
         descripcion = descripcion + '* ' + ord.descripcion;
+        categorias.push(ord.producto_id.categoria_id);
       });
       pedido = {
         ...pedido,
         Producto: producto,
-        Descripcion: descripcion
+        Descripcion: descripcion,
+        Categorias: categorias
       };
       pedidosNuevo.push(pedido);
     });
@@ -126,9 +118,24 @@ export class PedidosCocinaComponent implements OnInit {
 
     this.dataSource = PEDIDOS_DATA;
 
-    // PEDIDOS_DATA = pedidosNuevo;
+    }
 
-    // console.log(PEDIDOS_DATA);
+    actualizar_pedido(index) {
+      const pedido = PEDIDOS_DATA[index];
+      console.log(pedido);
+      this.node.actualizarPedido(pedido.ID, pedido.Completado).subscribe(async (resp) => {
+        await this.pedirPedidos();
+      });
+    }
+
+    getColor(com) {
+      // console.log(categorias);
+      switch (com){
+        case true:
+          return '';
+        case false:
+          return '#f73378';
+      }
     }
 
   // pizzas: 5f51986daf3d7403b74f919b

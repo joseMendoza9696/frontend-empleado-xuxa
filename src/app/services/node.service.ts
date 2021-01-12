@@ -129,13 +129,10 @@ export class NodeService {
     return this.http.post(`${this.URL}/crearPedido`, body, { headers: this.header } );
   }
 
-  actualizarPedido(idP: string) {
+  actualizarPedido(pedido: string, completado: boolean) {
     this.header = this.header.set('Authorization', this.token);
-    const patch = {
-      estado: true
-    };
 
-    return this.http.patch(`${this.URL}/emp/pedido/${idP}/${this.id}`, patch, { headers: this.header });
+    return this.http.patch(`${this.URL}/actualizarPedido?pedido=${pedido}&sucursal=${this.sucursal}`, { completado: !completado }, { headers: this.header });
   }
 
   buscador(fecha: string, nombre: string) {
