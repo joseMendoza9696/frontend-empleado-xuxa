@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 export interface PedidosCocina {
   ID: any;
-  id: any;
   Categorias: any;
   Cliente: any;
   Producto: any;
@@ -26,10 +25,10 @@ let PEDIDOS_DATA: PedidosCocina[] = [];
 })
 export class PedidosCocinaComponent implements OnInit {
 
-  // displayedColumns: string[] = ['Cliente', 'Pedido', 'Para', 'Completado'];
-  // dataSource = ELEMENT_DATA;
+  // displayedColumns: string[] = ['Cliente', 'Pedido', ''Para', 'Completado'];
+  // dataSource = ELEMENT_DATA;'
 
-  displayedColumns: string[] = ['id', 'Cliente', 'Producto', 'Descripcion', 'Para', 'Completado'];
+  displayedColumns: string[] = [ 'Cliente', 'Producto', 'Descripcion', 'Para', 'Completado'];
   // dataSource = ELEMENT_DATA;
   dataSource = PEDIDOS_DATA;
 
@@ -94,7 +93,6 @@ export class PedidosCocinaComponent implements OnInit {
       let descripcion = '';
       pedido = {
         ID: p._id,
-        id: index,
         Cliente: p.nombre_cliente,
         Para: p.tipo,
         Completado: p.completado

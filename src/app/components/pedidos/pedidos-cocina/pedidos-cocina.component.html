@@ -1,11 +1,6 @@
 <app-navbar></app-navbar>
 
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8"  >
-  <!-- Position Column -->
-  <ng-container matColumnDef="id" >
-    <mat-header-cell *matHeaderCellDef> id </mat-header-cell>
-    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}" > {{element.id + 1}} </mat-cell>
-  </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="Cliente">
