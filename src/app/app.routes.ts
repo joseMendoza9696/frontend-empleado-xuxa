@@ -16,7 +16,7 @@ export const ROUTES: Routes = [
             { path: 'fecha-pedidos', component: FechaPedidoComponent },
             { path: 'crear-pedido', component: CrearPedidoComponent },
             { path: 'estadisticas', component: EstadisticasComponent },
-            { path: 'pedidos-cocina', component: PedidosCocinaComponent },
+            { path: 'cocina', component: PedidosCocinaComponent },
 
             { path: '', pathMatch: 'full', redirectTo: 'fecha-pedidos' },
             { path: '**', pathMatch: 'full', redirectTo: 'fecha-pedidos' }

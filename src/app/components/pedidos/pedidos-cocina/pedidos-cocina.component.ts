@@ -39,6 +39,9 @@ export class PedidosCocinaComponent implements OnInit {
   pageSkip: number = 0;
   categorias: any = '';
 
+  fechaActualBusqueda: any;
+  fechaActualBusquedaFormat: any;
+
 
   constructor( private node: NodeService ) { }
 
@@ -75,6 +78,9 @@ export class PedidosCocinaComponent implements OnInit {
     const h = new Date();
     const ho = moment(h);
     const hoy = ho.format('YYYY-MM-DD');
+
+    this.fechaActualBusqueda = hoy;
+    this.fechaActualBusquedaFormat = ho;
 
     await this.node.fechaPedidos(hoy, this.pageLimit, this.pageSkip).subscribe((resp) => {
       this.pedidos = resp;
@@ -135,6 +141,11 @@ export class PedidosCocinaComponent implements OnInit {
           return '#f73378';
       }
     }
+
+  async recibirMensaje(event) {
+    // console.log('buscador...', event);
+    // this.pedidos = event;
+  }
 
   // pizzas: 5f51986daf3d7403b74f919b
   // alitas: 5f519a31af3d7403b74f91a5

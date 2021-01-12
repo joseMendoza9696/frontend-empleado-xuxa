@@ -1,6 +1,5 @@
-<app-navbar></app-navbar>
+<app-navbar (busqueda)="recibirMensaje($event)" [fecha]="fechaActualBusqueda" ></app-navbar>
 
-<h1>hola</h1>
 
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8"  >
 
