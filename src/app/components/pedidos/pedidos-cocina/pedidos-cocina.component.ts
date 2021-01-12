@@ -3,7 +3,7 @@ import {NodeService} from '../../../services/node.service';
 import * as moment from 'moment';
 import 'moment/locale/es';
 
-interface Cocina{
+export interface Cocina{
   ID: any;
   Categorias: any;
   Cliente: any;
