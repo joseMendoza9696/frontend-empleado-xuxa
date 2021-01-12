@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-// import * as io from 'socket.io-client';
 import 'moment/locale/es';
 
 import { PedidoModel } from '../../../models/pedido.model';

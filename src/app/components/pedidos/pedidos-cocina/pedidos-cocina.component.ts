@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as io from 'socket.io-client';
 import {NodeService} from '../../../services/node.service';
 import * as moment from 'moment';
-import { MatButtonModule } from '@angular/material/button';
+import 'moment/locale/es';
 
-export interface PedidosCocina {
+interface Cocina{
   ID: any;
   Categorias: any;
   Cliente: any;
@@ -14,7 +13,7 @@ export interface PedidosCocina {
   Completado: any;
 }
 
-let PEDIDOS_DATA: PedidosCocina[] = [];
+let PEDIDOS_DATA: Cocina[] = [];
 
 
 @Component({
@@ -46,7 +45,7 @@ export class PedidosCocinaComponent implements OnInit {
   constructor( private node: NodeService ) { }
 
   async ngOnInit(){
-    await this.listarCategorias();
+    // await this.listarCategorias();
     await this.pedirPedidos();
 
     this.node.socket.on('recibirComanda', async () => {

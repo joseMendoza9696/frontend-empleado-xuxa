@@ -1,38 +1,41 @@
 <app-navbar (busqueda)="recibirMensaje($event)" [fecha]="fechaActualBusqueda" ></app-navbar>
 
+<div class="">
+  <h1>cocina works!</h1>
+</div>
 
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8"  >
+<!--<mat-table [dataSource]="dataSource" class="mat-elevation-z8"  >-->
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="Cliente">
-    <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
-    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}" > {{element.Cliente}} </mat-cell>
-  </ng-container>
+<!--  &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--  <ng-container matColumnDef="Cliente">-->
+<!--    <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>-->
+<!--    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}" > {{element.Cliente}} </mat-cell>-->
+<!--  </ng-container>-->
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="Producto">
-    <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
-    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}"> {{element.Producto}} </mat-cell>
-  </ng-container>
+<!--  &lt;!&ndash; Weight Column &ndash;&gt;-->
+<!--  <ng-container matColumnDef="Producto">-->
+<!--    <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>-->
+<!--    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}"> {{element.Producto}} </mat-cell>-->
+<!--  </ng-container>-->
 
-  <ng-container matColumnDef="Descripcion">
-    <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
-    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}"> {{element.Descripcion}} </mat-cell>
-  </ng-container>
+<!--  <ng-container matColumnDef="Descripcion">-->
+<!--    <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>-->
+<!--    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}"> {{element.Descripcion}} </mat-cell>-->
+<!--  </ng-container>-->
 
-  <ng-container matColumnDef="Para">
-    <mat-header-cell *matHeaderCellDef> Para </mat-header-cell>
-    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}"> {{element.Para}} </mat-cell>
-  </ng-container>
+<!--  <ng-container matColumnDef="Para">-->
+<!--    <mat-header-cell *matHeaderCellDef> Para </mat-header-cell>-->
+<!--    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color':getColor(element.Completado)}"> {{element.Para}} </mat-cell>-->
+<!--  </ng-container>-->
 
-  <ng-container matColumnDef="Completado">
-    <mat-header-cell *matHeaderCellDef> Completado </mat-header-cell>
-    <mat-cell *matCellDef="let element; let i = index;" [ngStyle]="{'background-color':getColor(element.Completado)}" >
-      <button *ngIf="element.Completado" mat-raised-button style="background-color: #14a37f;" (click)="actualizar_pedido(i)" >Completado</button>
-      <button *ngIf="!element.Completado" mat-raised-button style="background-color: #ffee33; color: black;" (click)="actualizar_pedido(i)" >Completar</button>
-    </mat-cell>
-  </ng-container>
+<!--  <ng-container matColumnDef="Completado">-->
+<!--    <mat-header-cell *matHeaderCellDef> Completado </mat-header-cell>-->
+<!--    <mat-cell *matCellDef="let element; let i = index;" [ngStyle]="{'background-color':getColor(element.Completado)}" >-->
+<!--      <button *ngIf="element.Completado" mat-raised-button style="background-color: #14a37f;" (click)="actualizar_pedido(i)" >Completado</button>-->
+<!--      <button *ngIf="!element.Completado" mat-raised-button style="background-color: #ffee33; color: black;" (click)="actualizar_pedido(i)" >Completar</button>-->
+<!--    </mat-cell>-->
+<!--  </ng-container>-->
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+<!--  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--</mat-table>-->
