@@ -12,7 +12,6 @@ import { ROUTES } from './app.routes';
 import { CrearPedidoComponent } from './components/pedidos/crear-pedido/crear-pedido.component';
 import { FechaPedidoComponent } from './components/pedidos/fecha-pedido/fecha-pedido.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatNativeDateModule } from '@angular/material/core';
@@ -44,7 +43,6 @@ import { PedidosCocinaComponent } from './components/pedidos/pedidos-cocina/pedi
     CrearPedidoComponent,
     FechaPedidoComponent,
     NavbarComponent,
-    EstadisticasComponent,
     PedidosCocinaComponent,
   ],
   imports: [

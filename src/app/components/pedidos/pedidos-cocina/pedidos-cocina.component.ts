@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import 'moment/locale/es';
 
 export interface Cocina{
+  id: any;
   ID: any;
   Categorias: any;
   Cliente: any;
@@ -24,17 +25,13 @@ let PEDIDOS_DATA: Cocina[] = [];
 })
 export class PedidosCocinaComponent implements OnInit {
 
-  // displayedColumns: string[] = ['Cliente', 'Pedido', ''Para', 'Completado'];
-  // dataSource = ELEMENT_DATA;'
-
-  displayedColumns: string[] = [ 'Cliente', 'Producto', 'Descripcion', 'Para', 'Completado'];
-  // dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = [ 'id' , 'Cliente', 'Producto', 'Descripcion', 'Para', 'Completado'];
   dataSource = PEDIDOS_DATA;
 
 
-  context = new (window.AudioContext)();
+  context = new (window.AudioContext || (window as any).webkitAudioContext)();
   pedidos: any = '';
-  pageLimit: number = 10;
+  pageLimit: number = 50;
   pageSkip: number = 0;
   categorias: any = '';
 
@@ -47,6 +44,7 @@ export class PedidosCocinaComponent implements OnInit {
   async ngOnInit(){
     // await this.listarCategorias();
     await this.pedirPedidos();
+    // this.playSound();
 
     this.node.socket.on('recibirComanda', async () => {
       this.playSound();
@@ -61,6 +59,7 @@ export class PedidosCocinaComponent implements OnInit {
   }
 
   playSound(){
+    console.log('play sound');
     const osc = this.context.createOscillator();
     osc.type = 'sawtooth';
     osc.frequency.value = 440;
@@ -71,6 +70,7 @@ export class PedidosCocinaComponent implements OnInit {
     osc.start();
     // detenemos la nota medio segundo despues
     osc.stop(this.context.currentTime + .5);
+
   }
 
   async pedirPedidos(){
@@ -92,11 +92,13 @@ export class PedidosCocinaComponent implements OnInit {
 
     let pedido = {};
     const pedidosNuevo = [];
+    let c = 0;
 
     pe.forEach((p, index) => {
       let producto = '';
       let descripcion = '';
       pedido = {
+        id: pe.length - c,
         ID: p._id,
         Cliente: p.nombre_cliente,
         Para: p.tipo,
@@ -115,6 +117,7 @@ export class PedidosCocinaComponent implements OnInit {
         Categorias: categorias
       };
       pedidosNuevo.push(pedido);
+      c++;
     });
     PEDIDOS_DATA = pedidosNuevo;
     console.log(PEDIDOS_DATA);

@@ -24,8 +24,8 @@ export class NodeService {
   pedidosBusqueda: any;
   sucursalId: string;
 
-  // readonly URL: string = 'http://localhost:3000';
-  readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
+  readonly URL: string = 'http://localhost:3000';
+  // readonly URL: string = 'https://men-xuxas-backend.herokuapp.com';
 
 
   socket: any;
